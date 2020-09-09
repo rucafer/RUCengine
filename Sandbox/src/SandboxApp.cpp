@@ -1,5 +1,8 @@
 #include <Core/EntryPoint.h>
 #include <Core/Application.h>
+#include <Log/Log.h>
+
+#include <stdio.h>
 
 namespace RUC {
 
@@ -7,7 +10,7 @@ namespace RUC {
 	public:
 		Sandbox()
 		{
-
+			
 		}
 
 		~Sandbox() = default;

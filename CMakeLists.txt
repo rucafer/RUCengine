@@ -11,4 +11,4 @@ add_subdirectory(Sandbox)
 add_subdirectory(RUCengine)
 
 #Set VS startup project
-set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT RUCengine)
+set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT Sandbox)
