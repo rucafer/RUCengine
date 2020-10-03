@@ -6,6 +6,7 @@
 #include <ctime>
 
 #include "base.h"
+#include "Core/Application.h"
 
 //main declaratino needed to make main a friend function
 int main(int argc, char** argv);
@@ -151,7 +152,7 @@ namespace RUC
 		static void Init();
 
 		//Only main can initialize the log, so that the client can't initialize again.
-		friend int ::main(int argc, char** argv);
+		friend class Application;
 	private:
 		static std::vector<Logger*> s_Loggers;
 	};

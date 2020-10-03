@@ -27,3 +27,4 @@ Sandbox/Sandbox.vcxproj.user
 ZERO_CHECK.vcxproj
 ZERO_CHECK.vcxproj.filters
 x64/
+bin/

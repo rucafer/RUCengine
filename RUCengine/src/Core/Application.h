@@ -1,18 +1,25 @@
 #pragma once
 
+#include "Base.h"
+#include "Layers/LayerStack.h"
+
+#include <string>
+
 namespace RUC {
 
-	class Application {
+	class RUCAPI Application {
 	public:
-		Application() = default;
+		Application(const char* name);
 
 		virtual ~Application() = default;
 
 		void Run();
 
 	private:
+		const char* m_AppName;
 
+		LayerStack m_LayerStack;
 	};
 
-	Application* CreateApp();
+	extern const char* GetAppName();
 }

@@ -1,22 +1,7 @@
-#include <Core/EntryPoint.h>
-#include <Core/Application.h>
-#include <Log/Log.h>
+#include "Core/Application.h"
+#include "Core/EntryPoint.h"
 
-#include <stdio.h>
-
-namespace RUC {
-
-	class Sandbox : public Application {
-	public:
-		Sandbox()
-		{
-			
-		}
-
-		~Sandbox() = default;
-	};
-
-	Application* CreateApp() {
-		return new Sandbox();
-	}
+const char* RUC::GetAppName()
+{
+	return "Sandbox";
 }

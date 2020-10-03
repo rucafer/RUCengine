@@ -1,6 +1,13 @@
 #pragma once
 
 #ifndef RUCAPI
-//TODO: define RUCAPI for dll export and import
-	#define RUCAPI
+	#ifdef RUC_DYNAMIC_LIBRARY
+		#ifdef RUC_CORE
+			#define RUCAPI _declspec(dllexport)
+		#else
+			#define RUCAPI _declspec(dllimport)
+		#endif
+	#else
+		#define RUCAPI
+	#endif
 #endif
