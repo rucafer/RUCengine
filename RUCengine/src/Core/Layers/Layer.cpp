@@ -1,27 +1,17 @@
 #include "Layer.h"
 
-#include <iostream>
-
 namespace RUC
 {
-	Layer::Layer(const std::string& name)
-		:m_Name(name)
-	{
-
-	}
-
+	//Empty function implementation. Overriding them in custom layers isn't compulsory
 	void Layer::OnAttach()
 	{
-
 	}
 
 	void Layer::OnDetach()
 	{
-
 	}
 
 	void Layer::OnUpdate()
 	{
-		std::cout << m_Name << std::endl;
 	}
 }

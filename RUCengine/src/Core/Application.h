@@ -15,6 +15,8 @@ namespace RUC {
 
 		void Run();
 
+		void SetLayers(LayerStack* layerStack) { m_LayerStack = *layerStack; }
+
 	private:
 		const char* m_AppName;
 
@@ -22,4 +24,6 @@ namespace RUC {
 	};
 
 	extern const char* GetAppName();
+
+	extern void RegisterLayers(LayerStack* layerStack);
 }

@@ -1,22 +1,22 @@
 #pragma once
 
+#include "Base.h"
+
 #include <string>
 
 namespace RUC
 {
 
-	class Layer
+	class RUCAPI Layer
 	{
 	public:
-		Layer(const std::string& name);
-		~Layer() = default;
+		Layer() = default;
+		virtual ~Layer() = default;
 
-		void OnAttach();
-		void OnDetach();
+		virtual void OnAttach();
+		virtual void OnDetach();
 
-		void OnUpdate();
-	private:
-		const std::string m_Name;
+		virtual void OnUpdate();
 	};
 
 }

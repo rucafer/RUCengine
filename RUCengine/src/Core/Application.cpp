@@ -9,12 +9,6 @@ namespace RUC
 		: m_AppName(name)
 	{
 		Log::Init();
-
-		m_LayerStack.Push(new Layer("2"));
-		m_LayerStack.Push(new Layer("3"));
-		m_LayerStack.Push(new Layer("4"));
-		m_LayerStack.PushOnTop(new Layer("1"));
-		m_LayerStack.PushOnTop(new Layer("0"));
 	}
 
 	void Application::Run()

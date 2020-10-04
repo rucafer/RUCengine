@@ -1,13 +1,14 @@
 #pragma once
 
 #include "Layer.h"
+#include "Base.h"
 
 #include <vector>
 
 namespace RUC
 {
 
-	class LayerStack
+	class RUCAPI LayerStack
 	{
 	public:
 		LayerStack() = default;
