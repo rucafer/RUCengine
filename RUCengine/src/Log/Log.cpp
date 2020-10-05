@@ -1,3 +1,4 @@
+#include "Base.h"
 #include "Log.h"
 
 #ifdef RUC_WINDOWS
@@ -8,10 +9,15 @@ namespace RUC
 {
 	std::vector<Logger*> Log::s_Loggers;
 
-	Logger::Logger(bool autoFlush, LogSource sources, LogType ignored)
-		:m_AutoFlush(autoFlush), m_Sources(sources), m_Ignored(ignored)
+	Logger::Logger(verbLevel verbCutoff, logSources sources, std::string format, bool autoFlush)
+		: m_VerbCutoff(verbCutoff), m_Sources(sources), m_AutoFlush(autoFlush)
 	{
+		GetFormatTokens(format);
+	}
 
+	Logger::Logger()
+		:Logger(0, RUC_LOG_SOURCE_ALL, "%m", true)
+	{
 	}
 
 	Logger::~Logger()
@@ -19,7 +25,14 @@ namespace RUC
 
 	}
 
+	//FORMATTING HELPER FUNCTIONS
+	void Logger::GetFormatTokens(const std::string& format)
+	{
+		//TODO Get token indices from format string
+		//TODO Check that message token is included
+	}
 
+	/*
 
 
 
@@ -37,12 +50,13 @@ namespace RUC
 		return wcl;
 #endif
 	}
+	*/
 
 	//TODO: read default loggers from file instead of the hardcoded version
 	void Log::Init()
 	{
 		//Add default loggers if none has been specified by the client
-		auto logger = AddConsoleLogger();
-		logger->Log(LogType::LOG_ERROR, "Test");
+		//auto logger = AddConsoleLogger();
+		//logger->Log(LogType::LOG_ERROR, "Test");
 	}
 }

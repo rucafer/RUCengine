@@ -8,129 +8,43 @@
 #include "base.h"
 #include "Core/Application.h"
 
-//main declaratino needed to make main a friend function
-int main(int argc, char** argv);
 
 namespace RUC
 {
-	enum class LogType : unsigned char
-	{
-		LOG_NONE	= 0,
-		LOG_INFO	= 1 << 0,
-		LOG_WARNING = 1 << 1,
-		LOG_ERROR	= 1 << 2,
-	};
-	inline constexpr LogType operator|(LogType a, LogType b)
-	{
-		return (LogType)((unsigned char)a | (unsigned char)b);
-	}
-
-
-	enum class LogSource : unsigned char
-	{
-		CORE = 1 << 0,
-		APP  = 1 << 1
-	};
-	inline constexpr LogSource operator|(LogSource a, LogSource b)
-	{
-		return (LogSource)((unsigned char)a | (unsigned char)b);
-	}
+	typedef unsigned char verbLevel;
+	typedef unsigned char logSources;
 
 	class RUCAPI Logger
 	{
 	public:
-		//Defalut parameters are not provided
-		Logger() = delete;
-		Logger(bool autoFlush, LogSource sources, LogType ignored);
+		Logger();
+		Logger(verbLevel verbCutoff, logSources sources, std::string format, bool autoFlush);
 		virtual ~Logger();
 
-		LogSource GetSources() { return m_Sources; }
-		LogType GetIgnoredTypes() { return m_Ignored; }
+		logSources GetSources() { return m_Sources; }
+		verbLevel GetVerbosityCutoff() { return m_VerbCutoff; }
 		bool GetAutoFlush() { return m_AutoFlush; }
 
-		void SetSources(LogSource sources) { m_Sources = sources; }
-		void SetIgnoredTypes(LogType ignored) { m_Ignored = ignored; }
+		void SetSources(logSources sources) { m_Sources = sources; }
+		void SetVerbosityCutoff(verbLevel verbCutoff) { m_VerbCutoff = verbCutoff; }
 		void SetAutoFlush(bool autoFlush) { m_AutoFlush = autoFlush; }
 	
 	protected:
-		/*
-		* Token list
-		* h: current time: hours
-		* m: current time: minutes
-		* s: current time: seconds
-		* t: current time: hours:minutes:seconds
-		* S: source: APP or CORE
-		* #: # character: prints the # character instead of using it as the beginning of a token
-		*/
-		template<typename... Args>
-		std::string format(const std::string& message, LogSource source, Args... args)
-		{
-			std::string result;
-			const size_t messageSize = message.size();
-			//Reserve memory to avoid allocations.
-			result.reserve(messageSize);
-			const char token = '#';
-			size_t lastPos = -1;	//End of the last token found (or 0 if none was found)
-
-			size_t pos = message.find(token);
-			while (pos != std::string::npos)
-			{
-				if (pos == messageSize - 1)
-				{
-					return "Incorrect format, # character found at the end of the string\n";
-				}
-				result += message.substr(lastPos + 1, pos - (lastPos + 1));
-				lastPos = pos + 1;	//The token end is the character after #
-
-				//Add info depending on the token
-				switch (message[lastPos])
-				{
-				case 'h':
-				{
-					time_t t = time(nullptr);
-					tm buf;
-					localtime_s(&buf, &t);
-					result += std::to_string(buf.tm_hour);
-					break;
-				}
-				case 'm':
-				{
-					//TODO: force string to have two digits
-					time_t t = time(nullptr);
-					tm buf;
-					localtime_s(&buf, &t);
-					result += std::to_string(buf.tm_min);
-					break;
-				}
-				case 's':
-				{
-					time_t t = time(nullptr);
-					tm buf;
-					localtime_s(&buf, &t);
-					result += std::to_string(buf.tm_sec);
-					break;
-				}
-				case 'S':
-					result += source == LogSource::APP ? "APP" : "CORE";
-					break;
-				default:
-					return std::string("Incorrect format. Invalid token \"") + message.at(lastPos) + 
-						"\" found at position " + std::to_string(lastPos) + '\n';
-				}
-				pos = message.find(token, lastPos);
-			}
-			
-			result += message.substr(lastPos + 1, messageSize - (lastPos + 1));
-			return result;
-		}
+		virtual void Log() = 0;
+		virtual void Flush() = 0;
 
 	private:
-		LogSource m_Sources;
-		LogType m_Ignored;
+		void GetFormatTokens(const std::string& format);
+
+	private:
+		logSources m_Sources;
+		verbLevel m_VerbCutoff;
 		bool m_AutoFlush;
+
+		size_t* m_TokenIndices;
 	};
 
-	//Logger specification for each output type
+	/*//Logger specification for each output type
 	class RUCAPI ConsoleLogger : public Logger
 	{
 	public:
@@ -141,13 +55,13 @@ namespace RUC
 
 		virtual void Log(LogType type, const std::string& message) = 0;
 		virtual void Flush() = 0;
-	};
+	};*/
 
 	class Log
 	{
 	public:
-		RUCAPI static ConsoleLogger* AddConsoleLogger(bool autoFlush = true, LogSource sources = LogSource::CORE | LogSource::APP,
-			LogType ignored = LogType::LOG_NONE);
+		/*RUCAPI static ConsoleLogger* AddConsoleLogger(bool autoFlush = true, LogSource sources = LogSource::CORE | LogSource::APP,
+			LogType ignored = LogType::LOG_NONE);*/
 	private:
 		static void Init();
 
