@@ -8,6 +8,8 @@
 #include "base.h"
 #include "Core/Application.h"
 
+//Logging function used only if the logger initialization failed (it's just a wrapper for printf function)
+#define RUC_RAW_LOG(message, ...) printf(message"\n", __VA_ARGS__);
 
 namespace RUC
 {
@@ -17,8 +19,7 @@ namespace RUC
 	class RUCAPI Logger
 	{
 	public:
-		Logger();
-		Logger(verbLevel verbCutoff, logSources sources, std::string format, bool autoFlush);
+		Logger(std::string format = "%m", verbLevel verbCutoff = 0, logSources sources = RUC_LOG_SOURCE_ALL, bool autoFlush = true);
 		virtual ~Logger();
 
 		logSources GetSources() { return m_Sources; }
@@ -29,19 +30,37 @@ namespace RUC
 		void SetVerbosityCutoff(verbLevel verbCutoff) { m_VerbCutoff = verbCutoff; }
 		void SetAutoFlush(bool autoFlush) { m_AutoFlush = autoFlush; }
 	
+	public:
+		template<typename... Args>
+		void Log(const std::string& message, Args... args) //TODO: add more args(verb, source...)
+		{
+			size_t stringSize = snprintf(nullptr, 0, message.c_str(), args...) + 1;
+			char* formattedString = new char[stringSize];
+			snprintf(formattedString, stringSize, message.c_str(), args...);
+
+			LogImpl(GetLogFinalMessage(formattedString));
+			delete[] formattedString;
+		}
+
+		virtual void Flush() {}		//Should be pure virtual, temporary definition provided for tests
 	protected:
-		virtual void Log() = 0;
-		virtual void Flush() = 0;
+		//Should be pure virtual, temporary definition provided for tests
+		virtual void LogImpl(const std::string& message)
+		{
+			printf("%s\n", message.c_str());
+		}
 
 	private:
-		void GetFormatTokens(const std::string& format);
+		bool GetFormatTokens(const std::string& format);
+		std::string GetLogFinalMessage(const std::string& message);
 
 	private:
 		logSources m_Sources;
 		verbLevel m_VerbCutoff;
 		bool m_AutoFlush;
+		std::string m_Format;
 
-		size_t* m_TokenIndices;
+		std::vector<size_t> m_TokenIndices;
 	};
 
 	/*//Logger specification for each output type

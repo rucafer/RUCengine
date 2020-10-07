@@ -1,3 +1,4 @@
+#include "Base.h"
 #include "Application.h"
 #include "Log/Log.h"
 

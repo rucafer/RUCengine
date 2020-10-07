@@ -1,4 +1,4 @@
-#include "WindowsConsoleLogger.h"
+/*#include "WindowsConsoleLogger.h"
 #include <iostream>
 
 
@@ -34,4 +34,4 @@ namespace RUC
 	{
 		std::cout << std::flush;
 	}
-}
+}*/

@@ -1,4 +1,4 @@
-#pragma once
+/*#pragma once
 
 #include "Log/Log.h"
 #include <Windows.h>
@@ -24,4 +24,4 @@ namespace RUC
 		const WORD c_WarningColor = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY;
 		const WORD c_InfoColor = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY;
 	};
-}
+}*/
