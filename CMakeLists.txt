@@ -2,9 +2,11 @@ cmake_minimum_required(VERSION 3.6)
 
 project(RUCengine DESCRIPTION "RUCengine is a game engine created for educational purposes" LANGUAGES CXX)
 
-OPTION(RUC_DYNAMIC_LIBRARY "Build the engine as a dynamic library(dll)" FALSE)
+OPTION(RUC_DYNAMIC_LIBRARY "Build the engine as a dynamic library (dll)" FALSE)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+
+set(RUC_THIRDPARTY_DIR "${RUCengine_SOURCE_DIR}/ThirdParty")
 
 set(RUC_LIBRARY_TARGET_NAME "RUCengine")
 set(RUC_SANDBOX_TARGET_NAME "Sandbox")
@@ -23,6 +25,9 @@ endif()
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${RUC_OUTPUT_DIRECTORY})
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${RUC_OUTPUT_DIRECTORY})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${RUC_OUTPUT_DIRECTORY})
+
+#Add dependencies
+add_subdirectory(${RUC_THIRDPARTY_DIR}/spdlog)
 
 #Engine library
 add_subdirectory(RUCengine)
