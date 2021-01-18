@@ -1,8 +1,8 @@
 #include "Base.h"
 #include "Application.h"
-#include "Log/Log.h"
 
 #include <iostream>
+#include "Log/Log.h"
 
 namespace RUC
 {
@@ -11,14 +11,10 @@ namespace RUC
 	{
 		Log::Init();
 
-		Log::GetCoreLogger()->trace("Core test");
-		Log::GetClientLogger()->trace("App test");
-
-		Log::GetCoreLogger()->warn("Core test warning");
-		Log::GetClientLogger()->warn("App test warning");
-
-		Log::GetCoreLogger()->error("Core test error");
-		Log::GetClientLogger()->error("App test error");
+		RUC_INFO("App info test {}", 42);
+		RUC_TRACE("App trace test {}", 42);
+		RUC_WARN("App warning test {}", 42);
+		RUC_ERROR("App error test {}", 42);
 	}
 
 	void Application::Run()

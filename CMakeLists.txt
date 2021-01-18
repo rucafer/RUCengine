@@ -2,8 +2,6 @@ cmake_minimum_required(VERSION 3.6)
 
 project(RUCengine DESCRIPTION "RUCengine is a game engine created for educational purposes" LANGUAGES CXX)
 
-OPTION(RUC_DYNAMIC_LIBRARY "Build the engine as a dynamic library (dll)" FALSE)
-
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 set(RUC_THIRDPARTY_DIR "${RUCengine_SOURCE_DIR}/ThirdParty")

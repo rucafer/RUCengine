@@ -7,7 +7,7 @@
 
 namespace RUC {
 
-	class RUCAPI Application {
+	class Application {
 	public:
 		Application(const char* name);
 

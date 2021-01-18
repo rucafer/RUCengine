@@ -7,7 +7,7 @@
 namespace RUC
 {
 
-	class RUCAPI Layer
+	class Layer
 	{
 	public:
 		Layer() = default;

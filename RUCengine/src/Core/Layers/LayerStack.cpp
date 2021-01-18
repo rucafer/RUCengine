@@ -14,10 +14,12 @@ namespace RUC
 	void LayerStack::Push(Layer* layer)
 	{
 		m_Layers.push_back(layer);
+		layer->OnAttach();
 	}
 
 	void LayerStack::PushOnTop(Layer* layer) 
 	{
 		m_Layers.emplace(m_Layers.begin(), layer);
+		layer->OnAttach();
 	}
 }

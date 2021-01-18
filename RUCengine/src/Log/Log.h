@@ -4,16 +4,16 @@
 #include <spdlog/spdlog.h>
 #pragma warning(pop)
 
-#ifdef RUC_DYNAMIC_LIBRARY
-
-	#undef SPDLOG_API
-
-	#ifdef RUC_CORE
-		#define SPDLOG_API _declspec(dllexport)
-	#else
-		#undef SPDLOG_API
-		#define SPDLOG_API _declspec(dllimport)
-	#endif
+#ifdef RUC_CORE
+	#define RUC_TRACE(...)	RUC::Log::GetCoreLogger()->trace(__VA_ARGS__);
+	#define RUC_INFO(...)		RUC::Log::GetCoreLogger()->info(__VA_ARGS__);
+	#define RUC_WARN(...)		RUC::Log::GetCoreLogger()->warn(__VA_ARGS__);
+	#define RUC_ERROR(...)	RUC::Log::GetCoreLogger()->error(__VA_ARGS__);
+#else
+	#define RUC_INFO(...)		RUC::Log::GetClientLogger()->info(__VA_ARGS__);
+	#define RUC_WARN(...)		RUC::Log::GetClientLogger()->warn(__VA_ARGS__);
+	#define RUC_TRACE(...)	RUC::Log::GetClientLogger()->trace(__VA_ARGS__);
+	#define RUC_ERROR(...)	RUC::Log::GetClientLogger()->error(__VA_ARGS__);
 #endif
 
 namespace RUC
@@ -23,8 +23,8 @@ namespace RUC
 	public:
 		static void Init();
 		
-		static std::shared_ptr<spdlog::logger> GetCoreLogger() { return s_CoreLogger; }
-		static std::shared_ptr<spdlog::logger> GetClientLogger() { return s_ClientLogger; }
+		static std::shared_ptr<spdlog::logger> GetCoreLogger();
+		static std::shared_ptr<spdlog::logger> GetClientLogger();
 
 	private:
 		static std::shared_ptr<spdlog::logger> s_CoreLogger;

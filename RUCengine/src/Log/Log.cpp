@@ -24,4 +24,7 @@ namespace RUC
 		s_ClientLogger->set_level(spdlog::level::trace);
 		s_ClientLogger->flush_on(spdlog::level::trace);
 	}
+
+	std::shared_ptr<spdlog::logger> Log::GetCoreLogger() { return s_CoreLogger; }
+	std::shared_ptr<spdlog::logger> Log::GetClientLogger() { return s_ClientLogger; }
 }
