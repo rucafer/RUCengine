@@ -9,6 +9,12 @@ set(RUC_SRC_CORE_LAYERS
 	src/Core/Layers/LayerStack.h
 	src/core/Layers/LayerStack.cpp)
 
+set(RUC_SRC_CORE_EVENTS 
+	src/Core/Events/Event.h
+	src/Core/Events/EventDispatcher.h
+	src/Core/Events/ApplicationEvent.h
+	src/Core/Events/KeyEvent.h)
+
 set(RUC_SRC_LOG 
 	src/Log/Log.h
 	src/Log/Log.cpp)
@@ -21,11 +27,12 @@ if(RUC_PLAFORM_WINDOWS)
 endif()
 
 
-add_library(${RUC_LIBRARY_TARGET_NAME} STATIC ${RUC_SRC_CORE} ${RUC_SRC_CORE_LAYERS} ${RUC_SRC_LOG} ${RUC_SRC} ${RUC_SRC_PLATFORM_WINDOWS})
+add_library(${RUC_LIBRARY_TARGET_NAME} STATIC ${RUC_SRC_CORE} ${RUC_SRC_CORE_LAYERS} ${RUC_SRC_CORE_EVENTS} ${RUC_SRC_LOG} ${RUC_SRC} ${RUC_SRC_PLATFORM_WINDOWS})
 
 
 source_group("src/Core" FILES ${RUC_SRC_CORE})
 source_group("src/Core/Layers" FILES ${RUC_SRC_CORE_LAYERS})
+source_group("src/Core/Events" FILES ${RUC_SRC_CORE_EVENTS})
 source_group("src/Platform/Windows" FILES ${RUC_SRC_PLATFORM_WINDOWS})
 source_group("src/Log" FILES ${RUC_SRC_LOG})
 source_group("src" FILES ${RUC_SRC})
