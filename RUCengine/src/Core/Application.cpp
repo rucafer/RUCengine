@@ -5,55 +5,52 @@
 #include "Events/KeyEvent.h"
 #include "Events/EventDispatcher.h"
 
+#include <GLFW/glfw3.h>
+
 #include <iostream>
+
+#define BIND_EVENT_FN(fn) std::bind(&fn, this, std::placeholders::_1)
 
 namespace RUC
 {
-	static bool EventTest1(WindowResizedEvent& e)
-	{
-		RUC_INFO("WindowResizedEvent: {}-{}", e.GetWidth(), e.GetHeight());
-		return false;
-	}
-	static bool EventTest2(KeyDownEvent& e)
-	{
-		RUC_INFO("KeyDownEvent: {}", e.GetKeyCode());
-		return false;
-	}
-
 	Application::Application(const char* name)
 		: m_AppName(name)
 	{
 		Log::Init();
+		RUC_ASSERT(glfwInit(), "Failed to initialize GLFW");
+		m_Window = std::unique_ptr<Window>(Window::Create(WindowProps("Test window")));
 
-		//Logger Test
-		RUC_INFO("App info test {}", 42);
-		RUC_TRACE("App trace test {}", 42);
-		RUC_WARN("App warning test {}", 42);
-		RUC_ERROR("App error test {}", 42);
+		m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
+	}
 
-		//Events test
-		WindowResizedEvent wce(100.0, 200.0);
-		KeyDownEvent kde(5);
-
-		EventDispatcher disp1(wce);
-		EventDispatcher disp2(kde);
-
-		disp1.Dispatch<WindowResizedEvent>(EventTest1);
-		disp1.Dispatch<KeyDownEvent>(EventTest2);
-
-		disp2.Dispatch<WindowResizedEvent>(EventTest1);
-		disp2.Dispatch<KeyDownEvent>(EventTest2);
-
+	Application::~Application()
+	{
 	}
 
 	void Application::Run()
 	{
-		while (true)
+		while (m_Running)
 		{
-			for (Layer* layer : m_LayerStack)
+			for (Layer* layer : *m_LayerStack)
 			{
 				layer->OnUpdate();
 			}
+
+			m_Window->OnUpdate();
+
 		}
+	}
+
+	void Application::OnEvent(Event& event)
+	{
+		EventDispatcher dispatcher(event);
+
+		dispatcher.Dispatch<WindowClosedEvent>(BIND_EVENT_FN(Application::OnWindowClose));
+	}
+
+	bool Application::OnWindowClose(WindowClosedEvent& e)
+	{
+		m_Running = false;
+		return true;
 	}
 }

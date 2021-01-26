@@ -9,7 +9,7 @@ namespace RUC
 	public:
 		KeyDownEvent(int keyCode) : m_KeyCode(keyCode) {}
 
-		int GetKeyCode() { return m_KeyCode; }
+		int GetKeyCode() const { return m_KeyCode; }
 
 		SET_EVENT_TYPE(KeyDownEvent)
 	private:
@@ -21,7 +21,7 @@ namespace RUC
 	public:
 		KeyUpEvent(int keyCode) : m_KeyCode(keyCode) {}
 
-		int GetKeyCode() { return m_KeyCode; }
+		int GetKeyCode() const { return m_KeyCode; }
 
 		SET_EVENT_TYPE(KeyUpEvent)
 	private:

@@ -13,13 +13,13 @@ namespace RUC
 	class WindowResizedEvent : public Event
 	{
 	public:
-		WindowResizedEvent(float width, float height) : m_Width(width), m_Height(height) {}
+		WindowResizedEvent(int width, int height) : m_Width(width), m_Height(height) {}
 
 		SET_EVENT_TYPE(WindowResizedEvent)
 
-		float GetWidth() { return m_Width; }
-		float GetHeight() { return m_Height; }
+		int GetWidth() const { return m_Width; }
+		int GetHeight() const { return m_Height; }
 	private:
-		float m_Width, m_Height;
+		int m_Width, m_Height;
 	};
 }
