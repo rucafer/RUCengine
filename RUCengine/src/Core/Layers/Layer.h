@@ -13,10 +13,11 @@ namespace RUC
 		Layer() = default;
 		virtual ~Layer() = default;
 
-		virtual void OnAttach();
-		virtual void OnDetach();
+		virtual void OnAttach() {}
+		virtual void OnDetach() {}
 
-		virtual void OnUpdate();
+		virtual void OnUpdate() {}
+		virtual void OnImGuiRender() {}
 	};
 
 }

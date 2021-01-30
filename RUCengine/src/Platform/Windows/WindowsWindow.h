@@ -20,6 +20,8 @@ namespace RUC
 
 		void SetEventCallback(EventCallback eventCallback) override;
 
+		void* GetNativeWindow() const override { return m_Window; }
+
 	private:
 
 		GLFWwindow* m_Window;

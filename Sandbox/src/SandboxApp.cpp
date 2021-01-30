@@ -2,6 +2,7 @@
 #include "Core/EntryPoint.h"
 
 #include "TestLayer.h"
+#include "ImguiLayer.h"
 
 const char* RUC::GetAppName()
 {
@@ -12,4 +13,5 @@ void RUC::RegisterLayers(LayerStack* layerStack)
 {
 	TestLayer* test = new TestLayer();
 	layerStack->Push(test);
+	layerStack->PushOnTop(new ImGuiLayer());
 }

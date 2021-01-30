@@ -2,11 +2,15 @@ set(RUC_SRC_CORE
 	src/Core/Application.cpp
 	src/Core/Application.h
 	src/Core/EntryPoint.h
-	src/Core/Window.h)
+	src/Core/Window.h
+	src/Core/Input.h
+	src/Core/KeyCodes.h
+	src/Core/MouseButtonCodes.h
+	src/Core/ImGuiImpl.cpp
+	src/Core/ImGuiImpl.h)
 
 set(RUC_SRC_CORE_LAYERS 
 	src/Core/Layers/Layer.h
-	src/Core/Layers/Layer.cpp
 	src/Core/Layers/LayerStack.h
 	src/core/Layers/LayerStack.cpp)
 
@@ -22,7 +26,8 @@ set(RUC_SRC_LOG
 
 set(RUC_SRC_PLATFORM_WINDOWS
 	src/Platform/Windows/WindowsWindow.h
-	src/Platform/Windows/WindowsWindow.cpp)
+	src/Platform/Windows/WindowsWindow.cpp
+	src/Platform/Windows/WindowsInput.cpp)
 
 set(RUC_SRC
 	src/Base.h)
@@ -44,6 +49,7 @@ source_group("src" FILES ${RUC_SRC})
 
 target_link_libraries(${RUC_LIBRARY_TARGET_NAME} glfw)
 target_link_libraries(${RUC_LIBRARY_TARGET_NAME} glad)
+target_link_libraries(${RUC_LIBRARY_TARGET_NAME} imgui)
 target_link_libraries(${RUC_LIBRARY_TARGET_NAME} ${OPENGL_LIBRARIES})
 
 target_include_directories(${RUC_LIBRARY_TARGET_NAME} PUBLIC "${RUCengine_SOURCE_DIR}/RUCengine/src")

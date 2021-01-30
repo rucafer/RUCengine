@@ -5,6 +5,10 @@
 #include "Events/KeyEvent.h"
 #include "Events/EventDispatcher.h"
 
+#include "ImGuiImpl.h"
+
+#include "Input.h"
+
 #include <GLFW/glfw3.h>
 
 #include <iostream>
@@ -13,18 +17,26 @@
 
 namespace RUC
 {
+	Application* Application::s_Instance = nullptr;
+
 	Application::Application(const char* name)
 		: m_AppName(name)
 	{
+		RUC_ASSERT(!s_Instance, "Application already exists!");
+		s_Instance = this;
+
 		Log::Init();
 		RUC_ASSERT(glfwInit(), "Failed to initialize GLFW");
 		m_Window = std::unique_ptr<Window>(Window::Create(WindowProps("Test window")));
 
 		m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
+
+		ImGuiImpl::Init();
 	}
 
 	Application::~Application()
 	{
+		ImGuiImpl::ShutDown();
 	}
 
 	void Application::Run()
@@ -36,8 +48,23 @@ namespace RUC
 				layer->OnUpdate();
 			}
 
-			m_Window->OnUpdate();
+			glClearColor(1, 0, 1, 1);
+			glClear(GL_COLOR_BUFFER_BIT);
 
+
+			ImGuiImpl::BeginFrame();
+			for (Layer* layer : *m_LayerStack)
+			{
+				layer->OnImGuiRender();
+			}
+			ImGuiImpl::EndFrame();
+
+			if (Input::IsKeyPressed(32))
+			{
+				RUC_INFO("Space key pressed");
+			}
+
+			m_Window->OnUpdate();
 		}
 	}
 

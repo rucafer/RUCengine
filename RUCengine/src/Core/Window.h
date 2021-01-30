@@ -32,6 +32,8 @@ namespace RUC
 
 		virtual void  SetEventCallback(EventCallback callback) = 0;
 
+		virtual void* GetNativeWindow() const = 0;
+
 		static Window* Create(const WindowProps& properties);
 
 	protected:
