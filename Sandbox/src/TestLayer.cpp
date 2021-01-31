@@ -11,9 +11,5 @@ void TestLayer::OnAttach()
 
 void TestLayer::OnDetach()
 {
-}
-
-void TestLayer::OnUpdate()
-{
-	
+	RUC_INFO("Layer dettached");
 }

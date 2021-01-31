@@ -7,10 +7,13 @@ int main(int argc, char** argv)
 {
 	auto app = new RUC::Application(RUC::GetAppName());
 
-	RUC::LayerStack layerStack;
-	RUC::RegisterLayers(&layerStack);
-	app->SetLayers(&layerStack);
+	RUC::LayerStack* layerStack = new RUC::LayerStack();
+	RUC::RegisterLayers(layerStack);
+	app->SetLayers(layerStack);
 	
 	app->Run();
+
+	//Detach layers before shutting down the app
+	delete layerStack;
 	delete app;
 }

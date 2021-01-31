@@ -17,6 +17,7 @@ namespace RUC
 		virtual void OnDetach() {}
 
 		virtual void OnUpdate() {}
+		virtual void OnRender() {}
 		virtual void OnImGuiRender() {}
 	};
 

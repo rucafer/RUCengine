@@ -21,3 +21,4 @@ Sandbox/Sandbox.dir/
 *.vcxproj
 x64/
 bin/
+*imgui.ini

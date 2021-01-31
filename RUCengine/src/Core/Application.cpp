@@ -43,15 +43,22 @@ namespace RUC
 	{
 		while (m_Running)
 		{
+			//Update layers
 			for (Layer* layer : *m_LayerStack)
 			{
 				layer->OnUpdate();
 			}
 
+			//Render
 			glClearColor(1, 0, 1, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
 
+			for (Layer* layer : *m_LayerStack)
+			{
+				layer->OnRender();
+			}
 
+			//ImGui render
 			ImGuiImpl::BeginFrame();
 			for (Layer* layer : *m_LayerStack)
 			{
@@ -59,11 +66,7 @@ namespace RUC
 			}
 			ImGuiImpl::EndFrame();
 
-			if (Input::IsKeyPressed(32))
-			{
-				RUC_INFO("Space key pressed");
-			}
-
+			//Update window
 			m_Window->OnUpdate();
 		}
 	}
