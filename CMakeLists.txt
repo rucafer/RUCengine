@@ -33,7 +33,7 @@ set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 add_subdirectory(${RUC_THIRDPARTY_DIR}/spdlog)
 add_subdirectory(${RUC_THIRDPARTY_DIR}/glfw)
 add_subdirectory(${RUC_THIRDPARTY_DIR}/glad)
-add_subdirectory(${RUC_THIRDPARTY_DIR}/imgui)
+add_subdirectory(${RUC_THIRDPARTY_DIR}/ImGui)
 
 #Engine library
 add_subdirectory(RUCengine)
