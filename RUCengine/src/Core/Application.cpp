@@ -5,6 +5,9 @@
 #include "Events/KeyEvent.h"
 #include "Events/EventDispatcher.h"
 
+#include "Renderer/RenderCommand.h"
+#include "Renderer/Renderer.h"
+
 #include "ImGuiImpl.h"
 
 #include "Input.h"
@@ -31,7 +34,38 @@ namespace RUC
 
 		m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
 
+		Renderer::Init();
+
 		ImGuiImpl::Init();
+
+
+		//TEMPORARY
+		std::string vertexSrc = R"(
+		#version 330 core
+			
+			layout(location = 0) in vec3 a_Position;
+			layout(location = 1) in vec4 a_Color;
+			out vec4 v_Color;
+			void main()
+			{
+				v_Color = a_Color;
+				
+				gl_Position = vec4(a_Position, 1.0);	
+			}
+		)";
+
+		std::string fragmentSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) out vec4 color;
+			in vec4 v_Color;
+			void main()
+			{
+				color = v_Color;
+			}
+		)";
+
+		m_Shader = std::make_unique<Shader>(vertexSrc, fragmentSrc);
 	}
 
 	Application::~Application()
@@ -50,8 +84,10 @@ namespace RUC
 			}
 
 			//Render
-			glClearColor(1, 0, 1, 1);
-			glClear(GL_COLOR_BUFFER_BIT);
+			RenderCommand::SetClearColor({ 1.0f, 0.0f, 1.0f, 1.0f });
+			RenderCommand::Clear();
+
+			m_Shader->Bind();
 
 			for (Layer* layer : *m_LayerStack)
 			{
@@ -65,6 +101,7 @@ namespace RUC
 				layer->OnImGuiRender();
 			}
 			ImGuiImpl::EndFrame();
+			
 
 			//Update window
 			m_Window->OnUpdate();

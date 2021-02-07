@@ -34,6 +34,7 @@ add_subdirectory(${RUC_THIRDPARTY_DIR}/spdlog)
 add_subdirectory(${RUC_THIRDPARTY_DIR}/glfw)
 add_subdirectory(${RUC_THIRDPARTY_DIR}/glad)
 add_subdirectory(${RUC_THIRDPARTY_DIR}/ImGui)
+add_subdirectory(${RUC_THIRDPARTY_DIR}/glm)
 
 #Engine library
 add_subdirectory(RUCengine)

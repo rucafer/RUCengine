@@ -37,6 +37,7 @@ namespace RUC
 			glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
 		}
 
+		glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
 		m_Window = glfwCreateWindow(m_Data.Width, m_Data.Height, m_Data.Title.c_str(), NULL, NULL);
 		glfwMakeContextCurrent(m_Window);
 
