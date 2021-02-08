@@ -2,5 +2,5 @@
 
 namespace RUC
 {
-	RendererAPI::API RendererAPI::s_RendererAPI = RendererAPI::API::OpenGL;
+	RenderDevice::API RenderDevice::s_RendererAPI = RenderDevice::API::OpenGL;
 }

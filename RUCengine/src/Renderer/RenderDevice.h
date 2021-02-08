@@ -7,7 +7,7 @@
 
 namespace RUC
 {
-	class RendererAPI
+	class RenderDevice
 	{
 	public:
 

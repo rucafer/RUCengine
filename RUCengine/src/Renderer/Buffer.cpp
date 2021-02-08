@@ -14,7 +14,7 @@ namespace RUC{
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::API::OpenGL:
+		case RenderDevice::API::OpenGL:
 			return new OpenGLVertexBuffer(vertices, size);
 		}
 
@@ -29,7 +29,7 @@ namespace RUC{
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::API::OpenGL:
+		case RenderDevice::API::OpenGL:
 			return new OpenGLIndexBuffer(indices, count);
 		}
 

@@ -2,17 +2,21 @@
 
 #include <string>
 
+#include <glm.hpp>
+
 namespace RUC
 {
 	class Shader
 	{
 	public:
-		Shader(const std::string& vertexSrc, const std::string& fragmentSrc);
-		~Shader();
+		virtual ~Shader() = default;
 
-		void Bind();
-		void Unbind();
-	private:
-		uint32_t m_RendererID;
+		static Shader* Create(const std::string& filePath);
+		static Shader* Create(const std::string& vertexSrc, const std::string& fragmentSrc);
+
+		virtual void Bind() = 0;
+		virtual void Unbind() = 0;
+
+		virtual void UploadUniformMat4(const std::string& name, const glm::mat4& value) = 0;
 	};
 }

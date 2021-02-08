@@ -10,7 +10,7 @@ namespace RUC
 	class Renderer
 	{
 	public:
-		static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
+		static RenderDevice::API GetAPI() { return RenderDevice::GetAPI(); }
 
 		static void Init();
 

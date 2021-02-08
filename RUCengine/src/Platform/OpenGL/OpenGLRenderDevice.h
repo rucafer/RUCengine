@@ -4,7 +4,7 @@
 
 namespace RUC
 {
-	class OpenGLRenderDevice : public RendererAPI
+	class OpenGLRenderDevice : public RenderDevice
 	{
 	public:
 		void SetClearColor(const glm::vec4& color) override;

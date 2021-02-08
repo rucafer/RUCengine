@@ -4,13 +4,13 @@
 
 namespace RUC
 {
-	RendererAPI* RenderCommand::s_RendererAPI = nullptr;
+	RenderDevice* RenderCommand::s_RendererAPI = nullptr;
 
 	void RenderCommand::Init()
 	{
-		switch (RendererAPI::GetAPI())
+		switch (RenderDevice::GetAPI())
 		{
-		case RendererAPI::API::OpenGL:
+		case RenderDevice::API::OpenGL:
 			s_RendererAPI = new OpenGLRenderDevice();
 			break;
 		default:

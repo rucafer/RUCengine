@@ -9,7 +9,7 @@ namespace RUC
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::API::OpenGL:
+		case RenderDevice::API::OpenGL:
 			return new OpenGLVertexArray();
 		}
 

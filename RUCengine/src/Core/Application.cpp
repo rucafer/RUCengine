@@ -39,33 +39,7 @@ namespace RUC
 		ImGuiImpl::Init();
 
 
-		//TEMPORARY
-		std::string vertexSrc = R"(
-		#version 330 core
-			
-			layout(location = 0) in vec3 a_Position;
-			layout(location = 1) in vec4 a_Color;
-			out vec4 v_Color;
-			void main()
-			{
-				v_Color = a_Color;
-				
-				gl_Position = vec4(a_Position, 1.0);	
-			}
-		)";
-
-		std::string fragmentSrc = R"(
-			#version 330 core
-			
-			layout(location = 0) out vec4 color;
-			in vec4 v_Color;
-			void main()
-			{
-				color = v_Color;
-			}
-		)";
-
-		m_Shader = std::make_unique<Shader>(vertexSrc, fragmentSrc);
+		m_Shader.reset(Shader::Create("assets/shaders/DefaultShader.glsl"));
 	}
 
 	Application::~Application()
@@ -88,6 +62,7 @@ namespace RUC
 			RenderCommand::Clear();
 
 			m_Shader->Bind();
+			m_Shader->UploadUniformMat4("u_Transform", glm::mat4(0.5f));
 
 			for (Layer* layer : *m_LayerStack)
 			{
