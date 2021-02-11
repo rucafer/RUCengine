@@ -1,2 +1,0 @@
-F:\Proyectos\RUCengine\bin\Windows\Debug\glad.pdb
-F:\Proyectos\RUCengine\ThirdParty\glad\glad.dir\Debug\glad.pdb
