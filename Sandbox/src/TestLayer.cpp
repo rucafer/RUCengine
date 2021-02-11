@@ -2,6 +2,13 @@
 
 #include "Renderer/Renderer.h"
 
+#include "Core/Timestep.h"
+#include "Core/Input.h"
+
+#include <imgui.h>
+#include <gtc/matrix_transform.hpp>
+
+
 void TestLayer::OnAttach()
 {
 
@@ -42,15 +49,43 @@ void TestLayer::OnAttach()
 	m_VertexArray->AddVertexBuffer(vertexColorBuffer);
 	m_VertexArray->SetIndexBuffer(indexBuffer);
 
+	m_Shader.reset(RUC::Shader::Create("assets/shaders/DefaultShader.glsl"));
 }
 
 void TestLayer::OnDetach()
 {
 }
 
+void TestLayer::OnUpdate()
+{
+	//TEMPORARY
+	const float speed = 0.1f;
+
+	if (RUC::Input::IsKeyPressed(RUC_KEY_D))
+	{
+		position.x += speed * RUC::Timestep::Get();
+	}
+}
+
 void TestLayer::OnRender()
 {
+
 	m_VertexArray->Bind();
-	//glDrawElements(GL_TRIANGLES, m_VertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+	m_Shader->Bind();
+
+	//TEMPORARY
+	const float scale = 0.5f;
+
+	glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) * glm::scale(glm::mat4(1.0f), glm::vec3(scale));
+
+	m_Shader->UploadUniformMat4("u_Transform", transform);
 	RUC::Renderer::Submit(m_VertexArray);
+}
+
+void TestLayer::OnImGuiRender()
+{
+	ImGui::Begin("Stats");
+	ImGui::Text("Timestep: %f s", RUC::Timestep::Get());
+	ImGui::Text("Fps: %d", (int)(1 / RUC::Timestep::Get()));
+	ImGui::End();
 }

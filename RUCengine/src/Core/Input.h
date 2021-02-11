@@ -1,5 +1,7 @@
 #pragma once
 
+#include "KeyCodes.h"
+
 #include <utility>
 
 namespace RUC

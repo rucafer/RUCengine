@@ -41,10 +41,6 @@ namespace RUC {
 
 	private:
 		static Application* s_Instance;
-
-
-		//TEMPORARY
-		std::unique_ptr<Shader> m_Shader;
 	};
 
 	extern const char* GetAppName();

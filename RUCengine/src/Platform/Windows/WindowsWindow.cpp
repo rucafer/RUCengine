@@ -5,6 +5,7 @@
 #include "Core/Events/ApplicationEvent.h"
 #include "Core/Events/KeyEvent.h"
 #include "Core/Events/MouseEvent.h"
+#include "Renderer/Renderer.h"
 
 #include <glad/glad.h>
 
@@ -33,9 +34,12 @@ namespace RUC
 			int success = glfwInit();
 			RUC_ASSERT(success, "Failed to initialize GLFW");
 			glfwSetErrorCallback(GLFWErrorCallback);
-			glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-			glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
 		}
+
+		#if defined(RUC_DEBUG)
+		if (Renderer::GetAPI() == RenderDevice::API::OpenGL)
+			glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
+		#endif
 
 		glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
 		m_Window = glfwCreateWindow(m_Data.Width, m_Data.Height, m_Data.Title.c_str(), NULL, NULL);
@@ -119,6 +123,8 @@ namespace RUC
 				MouseMovedEvent event(xPos, yPos);
 				data.Callback(event);
 			});
+
+		//glfwSwapInterval(1);
 	}
 
 	WindowsWindow::~WindowsWindow()

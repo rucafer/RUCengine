@@ -17,6 +17,8 @@ namespace RUC
 		};
 
 	public:
+		virtual void Init() = 0;
+
 		static API GetAPI() { return s_RendererAPI; }
 
 		virtual void SetClearColor(const glm::vec4& color) = 0;

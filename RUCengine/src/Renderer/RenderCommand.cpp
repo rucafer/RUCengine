@@ -16,6 +16,8 @@ namespace RUC
 		default:
 			RUC_ASSERT(false, "Unknown RendererAPI");
 		}
+
+		s_RendererAPI->Init();
 	}
 
 	void RenderCommand::SetClearColor(const glm::vec4& color)

@@ -10,10 +10,9 @@ uniform mat4 u_Transform;
 out vec4 v_Color;
 
 void main()
-{
+{ 	
+	gl_Position = u_Transform * vec4(a_Position, 1.0f);
 	v_Color = a_Color;
-				
-	gl_Position = u_Transform * vec4(a_Position, 1.0);	
 }
 
 #type fragment

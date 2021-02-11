@@ -12,9 +12,9 @@
 
 #include "Input.h"
 
-#include <GLFW/glfw3.h>
+#include "Timestep.h"
 
-#include <iostream>
+#include <GLFW/glfw3.h>
 
 #define BIND_EVENT_FN(fn) std::bind(&fn, this, std::placeholders::_1)
 
@@ -38,8 +38,8 @@ namespace RUC
 
 		ImGuiImpl::Init();
 
-
-		m_Shader.reset(Shader::Create("assets/shaders/DefaultShader.glsl"));
+		//Update the timestep so that it has a correct initial value
+		Timestep::Update();
 	}
 
 	Application::~Application()
@@ -51,6 +51,8 @@ namespace RUC
 	{
 		while (m_Running)
 		{
+			Timestep::Update();
+
 			//Update layers
 			for (Layer* layer : *m_LayerStack)
 			{
@@ -58,11 +60,8 @@ namespace RUC
 			}
 
 			//Render
-			RenderCommand::SetClearColor({ 1.0f, 0.0f, 1.0f, 1.0f });
+			RenderCommand::SetClearColor({ 0.0f, 0.0f, 0.0f, 0.0f });
 			RenderCommand::Clear();
-
-			m_Shader->Bind();
-			m_Shader->UploadUniformMat4("u_Transform", glm::mat4(0.5f));
 
 			for (Layer* layer : *m_LayerStack)
 			{
