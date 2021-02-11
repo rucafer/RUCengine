@@ -7,7 +7,9 @@ set(RUC_SRC_CORE
 	src/Core/KeyCodes.h
 	src/Core/MouseButtonCodes.h
 	src/Core/ImGuiImpl.cpp
-	src/Core/ImGuiImpl.h)
+	src/Core/ImGuiImpl.h
+	src/Core/Timestep.h
+	src/Core/Timestep.cpp)
 
 set(RUC_SRC_CORE_LAYERS 
 	src/Core/Layers/Layer.h
@@ -48,6 +50,8 @@ set(RUC_SRC_PLATFORM_OPENGL
 	src/Platform/OpenGL/OpenGLBuffer.cpp
 	src/Platform/OpenGL/OpenGLRenderDevice.h
 	src/Platform/OpenGL/OpenGLRenderDevice.cpp
+	src/Platform/OpenGL/OpenGLShader.h
+	src/Platform/OpenGL/OpenGLShader.cpp
 	src/Platform/OpenGL/OpenGLVertexArray.h
 	src/Platform/OpenGL/OpenGLVertexArray.cpp)
 

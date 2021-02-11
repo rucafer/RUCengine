@@ -13,12 +13,11 @@ build/
 .vs/
 RUCengine.sln
 RUCengine/Debug/
-RUCengine/RUCengine.dir/
 Sandbox/Debug/
-Sandbox/Sandbox.dir/
 *.vcxproj.filters
 *.vcxproj.user
 *.vcxproj
 x64/
 bin/
 *imgui.ini
+*.dir
