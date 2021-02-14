@@ -1,6 +1,7 @@
 #include "TestLayer.h"
 
 #include "Renderer/Renderer.h"
+#include "Renderer/Renderer2D.h"
 
 #include "Core/Timestep.h"
 #include "Core/Input.h"
@@ -50,6 +51,9 @@ void TestLayer::OnAttach()
 	m_VertexArray->SetIndexBuffer(indexBuffer);
 
 	m_Shader.reset(RUC::Shader::Create("assets/shaders/DefaultShader.glsl"));
+	m_TextureShader.reset(RUC::Shader::Create("assets/shaders/TextureShader.glsl"));
+
+	m_CheckerBoardTex.reset(RUC::Texture2D::Create("assets/textures/TestCheckerBoard.png"));
 }
 
 void TestLayer::OnDetach()
@@ -69,8 +73,6 @@ void TestLayer::OnUpdate()
 
 void TestLayer::OnRender()
 {
-
-	m_VertexArray->Bind();
 	m_Shader->Bind();
 
 	//TEMPORARY
@@ -80,6 +82,8 @@ void TestLayer::OnRender()
 
 	m_Shader->UploadUniformMat4("u_Transform", transform);
 	RUC::Renderer::Submit(m_VertexArray);
+
+	RUC::Renderer2D::DrawQuad(glm::vec3(0.0f), glm::vec3(1.0f), m_TextureShader, m_CheckerBoardTex);
 }
 
 void TestLayer::OnImGuiRender()

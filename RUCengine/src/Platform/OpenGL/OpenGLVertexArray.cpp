@@ -69,6 +69,7 @@ namespace RUC
 
 			m_AttribIndexOffset++;
 		}
+		glBindVertexArray(0);
 	}
 
 	void OpenGLVertexArray::SetIndexBuffer(const std::shared_ptr<IndexBuffer>& indexBuffer)
@@ -77,5 +78,6 @@ namespace RUC
 
 		glBindVertexArray(m_RendererID);
 		indexBuffer->Bind();
+		glBindVertexArray(0);
 	}	
 }

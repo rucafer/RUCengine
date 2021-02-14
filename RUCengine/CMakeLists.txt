@@ -35,8 +35,12 @@ set(RUC_SRC_RENDERER
 	src/Renderer/RenderDevice.cpp
 	src/Renderer/Renderer.h
 	src/Renderer/Renderer.cpp
+	src/Renderer/Renderer2D.h
+	src/Renderer/Renderer2D.cpp
 	src/Renderer/Shader.h
 	src/Renderer/Shader.cpp
+	src/Renderer/Texture.h
+	src/Renderer/Texture.cpp
 	src/Renderer/VertexArray.h
 	src/Renderer/VertexArray.cpp)
 
@@ -52,6 +56,8 @@ set(RUC_SRC_PLATFORM_OPENGL
 	src/Platform/OpenGL/OpenGLRenderDevice.cpp
 	src/Platform/OpenGL/OpenGLShader.h
 	src/Platform/OpenGL/OpenGLShader.cpp
+	src/Platform/OpenGL/OpenGLTexture.h
+	src/Platform/OpenGL/OpenGLTexture.cpp
 	src/Platform/OpenGL/OpenGLVertexArray.h
 	src/Platform/OpenGL/OpenGLVertexArray.cpp)
 
@@ -85,3 +91,4 @@ target_include_directories(${RUC_LIBRARY_TARGET_NAME} PUBLIC "${RUCengine_SOURCE
 target_include_directories(${RUC_LIBRARY_TARGET_NAME} PRIVATE "${RUC_THIRDPARTY_DIR}/spdlog/include")
 target_include_directories(${RUC_LIBRARY_TARGET_NAME} PRIVATE "${RUC_THIRDPARTY_DIR}/glfw/include")
 target_include_directories(${RUC_LIBRARY_TARGET_NAME} PUBLIC "${RUC_THIRDPARTY_DIR}/glm/glm")
+target_include_directories(${RUC_LIBRARY_TARGET_NAME} PUBLIC "${RUC_THIRDPARTY_DIR}/stb_image")

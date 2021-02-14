@@ -20,6 +20,7 @@ namespace RUC
 		void Unbind() override;
 
 		void UploadUniformMat4(const std::string& name, const glm::mat4& value) override;
+		void UploadUniformInt(const std::string& name, int value) override;
 	private:
 		std::string ReadFile(const std::string& filePath);
 		std::unordered_map<GLenum, std::string> PreProcess(const std::string& source);

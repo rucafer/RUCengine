@@ -2,13 +2,13 @@
 
 #include "Platform/OpenGL/OpenGLShader.h"
 
-#include "RenderDevice.h"
+#include "Renderer.h"
 
 namespace RUC
 {
 	Shader* Shader::Create(const std::string& filePath)
 	{
-		switch (RenderDevice::GetAPI())
+		switch (Renderer::GetAPI())
 		{
 		case RenderDevice::API::OpenGL:
 			return new OpenGLShader(filePath);

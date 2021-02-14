@@ -1,5 +1,7 @@
 #include "RenderCommand.h"
 
+#include "Renderer2D.h"
+
 #include "Platform/OpenGL/OpenGLRenderDevice.h"
 
 namespace RUC
@@ -18,6 +20,7 @@ namespace RUC
 		}
 
 		s_RendererAPI->Init();
+		Renderer2D::Init();
 	}
 
 	void RenderCommand::SetClearColor(const glm::vec4& color)
