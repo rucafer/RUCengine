@@ -157,7 +157,5 @@ namespace RUC
 	{
 		glfwSwapBuffers(m_Window);
 		glfwPollEvents();
-
-		m_Data.Callback(WindowResizedEvent(10, 20));
 	}
 }

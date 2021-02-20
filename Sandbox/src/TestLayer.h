@@ -6,6 +6,7 @@
 #include "Renderer/VertexArray.h"
 #include "Renderer/Shader.h"
 #include "Renderer/Texture.h"
+#include "Renderer/FrameBuffer.h"
 
 class TestLayer : public RUC::Layer
 {
@@ -23,9 +24,10 @@ private:
 	std::shared_ptr<RUC::Shader> m_Shader;
 	std::shared_ptr<RUC::Shader> m_TextureShader;
 
-
 	//TEMPORARY
 	glm::vec3 position = { -1.0f, 0.0f, 0.0f };
 
 	std::shared_ptr<RUC::Texture> m_CheckerBoardTex;
+
+	std::shared_ptr<RUC::FrameBuffer> m_FrameBuffer;
 };

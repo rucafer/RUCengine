@@ -29,6 +29,7 @@ namespace RUC {
 
 	private:
 		bool OnWindowClose(WindowClosedEvent& e);
+		bool OnWindowResize(WindowResizedEvent& e);
 
 	private:
 		const char* m_AppName;

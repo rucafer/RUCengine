@@ -60,7 +60,7 @@ namespace RUC
 			}
 
 			//Render
-			RenderCommand::SetClearColor({ 0.0f, 0.0f, 0.0f, 0.0f });
+			RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
 			RenderCommand::Clear();
 
 			for (Layer* layer : *m_LayerStack)
@@ -87,11 +87,22 @@ namespace RUC
 		EventDispatcher dispatcher(event);
 
 		dispatcher.Dispatch<WindowClosedEvent>(BIND_EVENT_FN(Application::OnWindowClose));
+		dispatcher.Dispatch<WindowResizedEvent>(BIND_EVENT_FN(Application::OnWindowResize));
 	}
 
 	bool Application::OnWindowClose(WindowClosedEvent& e)
 	{
 		m_Running = false;
 		return true;
+	}
+
+	bool Application::OnWindowResize(WindowResizedEvent& e)
+	{
+		//TODO: handle minimized window
+
+		Renderer::SetViewportSize(e.GetWidth(), e.GetHeight());
+		FrameBuffer::ResizeAllResizables(e.GetWidth(), e.GetHeight());
+
+		return false;	//Other parts of the code may need to be notified by the resize
 	}
 }

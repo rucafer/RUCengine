@@ -5,6 +5,8 @@
 
 #include "VertexArray.h"
 
+#include "FrameBuffer.h"
+
 namespace RUC
 {
 	class Renderer
@@ -18,5 +20,9 @@ namespace RUC
 		static void EndScene();
 
 		static void Submit(const std::shared_ptr<VertexArray>& vertexArray);
+
+		static void SetViewportSize(uint32_t width, uint32_t height);
+	private:
+		static std::vector<std::shared_ptr<FrameBuffer>> s_ResizableFrameBuffers;
 	};
 }

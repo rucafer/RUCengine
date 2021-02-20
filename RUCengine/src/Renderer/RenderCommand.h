@@ -17,7 +17,9 @@ namespace RUC
 
 		static void DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray);
 
+		static void SetViewportSize(uint32_t width, uint32_t height);
+
 	private:
-		static RenderDevice* s_RendererAPI;
+		static RenderDevice* s_RendererDevice;
 	};
 }

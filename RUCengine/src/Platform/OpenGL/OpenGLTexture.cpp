@@ -29,6 +29,12 @@ namespace RUC
 		stbi_image_free(data);
 	}
 
+	OpenGLTexture2D::OpenGLTexture2D(uint32_t id, uint32_t width, uint32_t height)
+	: m_RendererID(id), m_Width(width), m_Height(height) 
+	{
+
+	}
+
 	OpenGLTexture2D::~OpenGLTexture2D()
 	{
 		glDeleteTextures(1, &m_RendererID);

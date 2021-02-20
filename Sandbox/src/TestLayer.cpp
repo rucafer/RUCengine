@@ -9,9 +9,19 @@
 #include <imgui.h>
 #include <gtc/matrix_transform.hpp>
 
+#include <glad/glad.h>
+
 
 void TestLayer::OnAttach()
 {
+
+	RUC::FrameBufferSpecification fbSpec;
+	fbSpec.Width = 1280;
+	fbSpec.Height = 720;
+	fbSpec.SwapChainTarget = true;
+	fbSpec.resizable = true;
+	fbSpec.AttachmentList = { RUC::FrameBufferTextureFormat::RGBA8, RUC::FrameBufferTextureFormat::DEPTH24STENCIL8 };
+	m_FrameBuffer.reset(RUC::FrameBuffer::Create(fbSpec));
 
 	float vertexPos[3 * 3] = {
 		-0.5f, -0.5f, 0.0f,
@@ -63,7 +73,7 @@ void TestLayer::OnDetach()
 void TestLayer::OnUpdate()
 {
 	//TEMPORARY
-	const float speed = 0.1f;
+	const float speed = 0.5f;
 
 	if (RUC::Input::IsKeyPressed(RUC_KEY_D))
 	{
@@ -73,6 +83,11 @@ void TestLayer::OnUpdate()
 
 void TestLayer::OnRender()
 {
+
+	m_FrameBuffer->Bind();
+	RUC::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
+	RUC::RenderCommand::Clear();
+	
 	m_Shader->Bind();
 
 	//TEMPORARY
@@ -84,6 +99,8 @@ void TestLayer::OnRender()
 	RUC::Renderer::Submit(m_VertexArray);
 
 	RUC::Renderer2D::DrawQuad(glm::vec3(0.0f), glm::vec3(1.0f), m_TextureShader, m_CheckerBoardTex);
+
+	m_FrameBuffer->Unbind();
 }
 
 void TestLayer::OnImGuiRender()

@@ -41,4 +41,9 @@ namespace RUC
 		vertexArray->Bind();
 		glDrawElements(GL_TRIANGLES, vertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
 	}
+
+	void OpenGLRenderDevice::SetViewportSize(uint32_t width, uint32_t height)
+	{
+		glViewport(0, 0, width, height);
+	}
 }

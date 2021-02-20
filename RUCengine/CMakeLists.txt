@@ -29,6 +29,8 @@ set(RUC_SRC_LOG
 set(RUC_SRC_RENDERER 
 	src/Renderer/Buffer.h
 	src/Renderer/Buffer.cpp
+	src/Renderer/FrameBuffer.h
+	src/Renderer/FrameBuffer.cpp
 	src/Renderer/RenderCommand.h
 	src/Renderer/RenderCommand.cpp
 	src/Renderer/RenderDevice.h
@@ -52,6 +54,8 @@ set(RUC_SRC_PLATFORM_WINDOWS
 set(RUC_SRC_PLATFORM_OPENGL
 	src/Platform/OpenGL/OpenGLBuffer.h
 	src/Platform/OpenGL/OpenGLBuffer.cpp
+	src/Platform/OpenGL/OpenGLFrameBuffer.h
+	src/Platform/OpenGL/OpenGLFrameBuffer.cpp
 	src/Platform/OpenGL/OpenGLRenderDevice.h
 	src/Platform/OpenGL/OpenGLRenderDevice.cpp
 	src/Platform/OpenGL/OpenGLShader.h
