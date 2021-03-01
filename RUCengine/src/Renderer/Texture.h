@@ -1,10 +1,12 @@
 #pragma once
 
+#include "ResourceManager/Resource.h"
+
 #include <string>
 
 namespace RUC
 {
-	class Texture
+	class Texture : virtual public Resource
 	{
 	public:
 		virtual ~Texture() = default;
@@ -15,10 +17,9 @@ namespace RUC
 		virtual void Bind(uint32_t slot = 0) const = 0;
 	};
 
-	class Texture2D : public Texture
+	class Texture2D : virtual public Texture
 	{
 	public:
-		static Texture2D* Create(const std::string& path);
-		static Texture2D* Create(uint32_t id, uint32_t width, uint32_t height);
+		static Texture2D* LoadFromFile(const std::string& path);
 	};
 }

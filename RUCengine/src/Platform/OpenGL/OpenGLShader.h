@@ -8,11 +8,11 @@
 
 namespace RUC
 {
-	class OpenGLShader : public Shader
+	class OpenGLShader : virtual public Shader
 	{
 	public:
 		OpenGLShader(const std::string& filePath);
-		OpenGLShader(const std::string& vertexSrc, const std::string& fragmentSrc);
+		OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc);
 
 		~OpenGLShader();
 

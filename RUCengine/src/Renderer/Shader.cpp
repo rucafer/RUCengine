@@ -6,7 +6,7 @@
 
 namespace RUC
 {
-	Shader* Shader::Create(const std::string& filePath)
+	Shader* Shader::LoadFromFile(const std::string& filePath)
 	{
 		switch (Renderer::GetAPI())
 		{
@@ -18,12 +18,12 @@ namespace RUC
 		return nullptr;
 	}
 	
-	Shader* Shader::Create(const std::string& vertexSrc, const std::string& fragmentSrc)
+	Shader* Shader::Create(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc)
 	{
 		switch (RenderDevice::GetAPI())
 		{
 		case RenderDevice::API::OpenGL:
-			return new OpenGLShader(vertexSrc, fragmentSrc);
+			return new OpenGLShader(name, vertexSrc, fragmentSrc);
 		}
 
 		RUC_ASSERT(false, "Unknown RendererAPI");

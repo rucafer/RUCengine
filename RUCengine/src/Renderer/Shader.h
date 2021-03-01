@@ -1,18 +1,20 @@
 #pragma once
 
+#include "ResourceManager/Resource.h"
+
 #include <string>
 
 #include <glm.hpp>
 
 namespace RUC
 {
-	class Shader
+	class Shader : virtual public Resource
 	{
 	public:
 		virtual ~Shader() = default;
 
-		static Shader* Create(const std::string& filePath);
-		static Shader* Create(const std::string& vertexSrc, const std::string& fragmentSrc);
+		static Shader* LoadFromFile(const std::string& filePath);
+		static Shader* Create(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc);
 
 		virtual void Bind() = 0;
 		virtual void Unbind() = 0;

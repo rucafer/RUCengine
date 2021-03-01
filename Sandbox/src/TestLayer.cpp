@@ -6,6 +6,8 @@
 #include "Core/Timestep.h"
 #include "Core/Input.h"
 
+#include "ResourceManager/ResourceManager.h"
+
 #include <imgui.h>
 #include <gtc/matrix_transform.hpp>
 
@@ -14,7 +16,6 @@
 
 void TestLayer::OnAttach()
 {
-
 	RUC::FrameBufferSpecification fbSpec;
 	fbSpec.Width = 1280;
 	fbSpec.Height = 720;
@@ -60,10 +61,9 @@ void TestLayer::OnAttach()
 	m_VertexArray->AddVertexBuffer(vertexColorBuffer);
 	m_VertexArray->SetIndexBuffer(indexBuffer);
 
-	m_Shader.reset(RUC::Shader::Create("assets/shaders/DefaultShader.glsl"));
-	m_TextureShader.reset(RUC::Shader::Create("assets/shaders/TextureShader.glsl"));
-
-	m_CheckerBoardTex.reset(RUC::Texture2D::Create("assets/textures/TestCheckerBoard.png"));
+	m_Shader = RUC::ResourceManager::GetFromFile<RUC::Shader>("assets/shaders/DefaultShader.glsl");
+	m_TextureShader = RUC::ResourceManager::GetFromFile<RUC::Shader>("assets/shaders/TextureShader.glsl");
+	m_CheckerBoardTex = RUC::ResourceManager::GetFromFile<RUC::Texture2D>("assets/textures/TestCheckerBoard.png");
 }
 
 void TestLayer::OnDetach()

@@ -10,6 +10,7 @@
 namespace RUC
 {
 	OpenGLTexture2D::OpenGLTexture2D(const std::string& filePath)
+		:Resource(filePath)
 	{
 		int width, height, channels;
 		stbi_set_flip_vertically_on_load(1);
@@ -27,12 +28,6 @@ namespace RUC
 		glTextureSubImage2D(m_RendererID, 0, 0, 0, m_Width, m_Height, GL_RGB, GL_UNSIGNED_BYTE, data);
 	
 		stbi_image_free(data);
-	}
-
-	OpenGLTexture2D::OpenGLTexture2D(uint32_t id, uint32_t width, uint32_t height)
-	: m_RendererID(id), m_Width(width), m_Height(height) 
-	{
-
 	}
 
 	OpenGLTexture2D::~OpenGLTexture2D()

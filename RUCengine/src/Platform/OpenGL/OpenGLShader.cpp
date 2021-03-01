@@ -21,6 +21,7 @@ namespace RUC
 	}
 
 	OpenGLShader::OpenGLShader(const std::string& filePath)
+		:Resource(filePath)
 	{
 		std::string source = ReadFile(filePath);
 
@@ -29,7 +30,8 @@ namespace RUC
 		Compile(shaderSources);
 	}
 
-	OpenGLShader::OpenGLShader(const std::string& vertexSrc, const std::string& fragmentSrc)
+	OpenGLShader::OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc)
+		:Resource(name)
 	{
 		std::unordered_map<GLenum, std::string> shaderSources;
 		shaderSources[GL_VERTEX_SHADER] = vertexSrc;

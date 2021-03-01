@@ -20,7 +20,8 @@ set(RUC_SRC_CORE_EVENTS
 	src/Core/Events/Event.h
 	src/Core/Events/EventDispatcher.h
 	src/Core/Events/ApplicationEvent.h
-	src/Core/Events/KeyEvent.h)
+	src/Core/Events/KeyEvent.h
+	src/Core/Events/MouseEvent.h)
 
 set(RUC_SRC_LOG 
 	src/Log/Log.h
@@ -45,6 +46,10 @@ set(RUC_SRC_RENDERER
 	src/Renderer/Texture.cpp
 	src/Renderer/VertexArray.h
 	src/Renderer/VertexArray.cpp)
+
+set(RUC_SRC_RESOURCE_MANAGER 
+	src/ResourceManager/Resource.h
+	src/ResourceManager/ResourceManager.h)
 
 set(RUC_SRC_PLATFORM_WINDOWS
 	src/Platform/Windows/WindowsWindow.h
@@ -75,7 +80,7 @@ endif()
 add_definitions(-DRUC_CORE)
 
 add_library(${RUC_LIBRARY_TARGET_NAME} STATIC ${RUC_SRC_CORE} ${RUC_SRC_CORE_LAYERS} ${RUC_SRC_CORE_EVENTS} ${RUC_SRC_LOG} 
-	${RUC_SRC_RENDERER} ${RUC_SRC} ${RUC_SRC_PLATFORM_WINDOWS} ${RUC_SRC_PLATFORM_OPENGL})
+	${RUC_SRC_RENDERER} ${RUC_SRC_RESOURCE_MANAGER} ${RUC_SRC} ${RUC_SRC_PLATFORM_WINDOWS} ${RUC_SRC_PLATFORM_OPENGL})
 
 source_group("src/Core" FILES ${RUC_SRC_CORE})
 source_group("src/Core/Layers" FILES ${RUC_SRC_CORE_LAYERS})
@@ -84,6 +89,7 @@ source_group("src/Platform/Windows" FILES ${RUC_SRC_PLATFORM_WINDOWS})
 source_group("src/Platform/OpenGL" FILES ${RUC_SRC_PLATFORM_OPENGL})
 source_group("src/Log" FILES ${RUC_SRC_LOG})
 source_group("src/Renderer" FILES ${RUC_SRC_RENDERER})
+source_group("src/ResourceManager" FILES ${RUC_SRC_RESOURCE_MANAGER})
 source_group("src" FILES ${RUC_SRC})
 
 target_link_libraries(${RUC_LIBRARY_TARGET_NAME} glfw)
