@@ -9,42 +9,42 @@ namespace RUC
 {
 #pragma region BufferLayout
 
-	enum class ShaderDataType
+	enum class BufferDataType
 	{
 		Float, Float2, Float3, Float4, Int, Int2, Int3, Int4, Bool, Mat3, Mat4
 	};
 
-	static uint32_t ShaderDataTypeSize(ShaderDataType type)
+	static uint32_t BufferDataTypeSize(BufferDataType type)
 	{
 		switch (type)
 		{
-		case ShaderDataType::Float:		return sizeof(float);
-		case ShaderDataType::Float2:	return sizeof(float) * 2;
-		case ShaderDataType::Float3:	return sizeof(float) * 3;
-		case ShaderDataType::Float4:	return sizeof(float) * 4;
-		case ShaderDataType::Int:		return sizeof(int);
-		case ShaderDataType::Int2:		return sizeof(int) * 2;
-		case ShaderDataType::Int3:		return sizeof(int) * 3;
-		case ShaderDataType::Int4:		return sizeof(int) * 4;
-		case ShaderDataType::Mat3:		return sizeof(float) * 3 * 3;
-		case ShaderDataType::Mat4:		return sizeof(float) * 4 * 4;
-		case ShaderDataType::Bool:		return sizeof(bool);
+		case BufferDataType::Float:		return sizeof(float);
+		case BufferDataType::Float2:	return sizeof(float) * 2;
+		case BufferDataType::Float3:	return sizeof(float) * 3;
+		case BufferDataType::Float4:	return sizeof(float) * 4;
+		case BufferDataType::Int:		return sizeof(int);
+		case BufferDataType::Int2:		return sizeof(int) * 2;
+		case BufferDataType::Int3:		return sizeof(int) * 3;
+		case BufferDataType::Int4:		return sizeof(int) * 4;
+		case BufferDataType::Mat3:		return sizeof(float) * 3 * 3;
+		case BufferDataType::Mat4:		return sizeof(float) * 4 * 4;
+		case BufferDataType::Bool:		return sizeof(bool);
 		}
 
-		RUC_ASSERT(false, "Unkonwn ShaderDataType");
+		RUC_ASSERT(false, "Unkonwn BufferDataType");
 		return 0;
 	}
 
 	struct BufferLayoutElement
 	{
 		std::string Name;
-		ShaderDataType Type;
+		BufferDataType Type;
 		uint32_t Size;
 		uint32_t Offset;
 		bool Normalized;
 
-		BufferLayoutElement(ShaderDataType type, const std::string& name, bool normalized = false)
-			: Name(name), Type(type), Size(ShaderDataTypeSize(type)), Offset(0), Normalized(normalized)
+		BufferLayoutElement(BufferDataType type, const std::string& name, bool normalized = false)
+			: Name(name), Type(type), Size(BufferDataTypeSize(type)), Offset(0), Normalized(normalized)
 		{
 		}
 
@@ -52,20 +52,20 @@ namespace RUC
 		{
 			switch (Type)
 			{
-			case ShaderDataType::Float:			return 1;
-			case ShaderDataType::Float2:		return 2;
-			case ShaderDataType::Float3:		return 3;
-			case ShaderDataType::Float4:		return 4;
-			case ShaderDataType::Int:			return 1;
-			case ShaderDataType::Int2:			return 2;
-			case ShaderDataType::Int3:			return 3;
-			case ShaderDataType::Int4:			return 4;
-			case ShaderDataType::Mat3:			return 3 * 3;
-			case ShaderDataType::Mat4:			return 4 * 4;
-			case ShaderDataType::Bool:			return 1;
+			case BufferDataType::Float:			return 1;
+			case BufferDataType::Float2:		return 2;
+			case BufferDataType::Float3:		return 3;
+			case BufferDataType::Float4:		return 4;
+			case BufferDataType::Int:			return 1;
+			case BufferDataType::Int2:			return 2;
+			case BufferDataType::Int3:			return 3;
+			case BufferDataType::Int4:			return 4;
+			case BufferDataType::Mat3:			return 3 * 3;
+			case BufferDataType::Mat4:			return 4 * 4;
+			case BufferDataType::Bool:			return 1;
 			}
 
-			RUC_ASSERT(false, "Unkonwn ShaderDataType");
+			RUC_ASSERT(false, "Unkonwn BufferDataType");
 			return 0;
 		}
 

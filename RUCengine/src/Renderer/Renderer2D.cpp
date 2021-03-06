@@ -20,8 +20,8 @@ namespace RUC
 
 		std::shared_ptr<VertexBuffer> quadVertexBuffer;
 		quadVertexBuffer.reset(VertexBuffer::Create(quadVertexPositions, sizeof(quadVertexPositions)));
-		quadVertexBuffer->SetLayout({{ ShaderDataType::Float4, "a_Position" }, 
-									 { ShaderDataType::Float2, "a_TexCoord" }});
+		quadVertexBuffer->SetLayout({{ BufferDataType::Float4, "a_Position" }, 
+									 { BufferDataType::Float2, "a_TexCoord" }});
 		quadVertexArray->AddVertexBuffer(quadVertexBuffer);
 
 		std::shared_ptr<IndexBuffer> quadIndexBuffer;

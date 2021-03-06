@@ -46,10 +46,10 @@ void TestLayer::OnAttach()
 	vertexColorBuffer.reset(RUC::VertexBuffer::Create(vertexColor, sizeof(vertexColor)));
 
 	RUC::BufferLayout posLayout = {
-		{RUC::ShaderDataType::Float3, "a_Positon"}
+		{RUC::BufferDataType::Float3, "a_Positon"}
 	};
 	RUC::BufferLayout colorLayout = {
-		{RUC::ShaderDataType::Float4, "a_Color"}
+		{RUC::BufferDataType::Float4, "a_Color"}
 	};
 	vertexPosBuffer->SetLayout(posLayout);
 	vertexColorBuffer->SetLayout(colorLayout);
@@ -64,6 +64,11 @@ void TestLayer::OnAttach()
 	m_Shader = RUC::ResourceManager::GetFromFile<RUC::Shader>("assets/shaders/DefaultShader.glsl");
 	m_TextureShader = RUC::ResourceManager::GetFromFile<RUC::Shader>("assets/shaders/TextureShader.glsl");
 	m_CheckerBoardTex = RUC::ResourceManager::GetFromFile<RUC::Texture2D>("assets/textures/TestCheckerBoard.png");
+
+	/*for (auto& uniform : m_TextureShader->GetUniforms())
+	{
+		RUC_INFO("{0} {1}", uniform.second, uniform.first);
+	}*/
 }
 
 void TestLayer::OnDetach()

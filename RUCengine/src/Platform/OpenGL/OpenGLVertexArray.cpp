@@ -5,27 +5,27 @@
 namespace RUC
 {
 
-	static GLenum ShaderDataTypeToOpenGLType(ShaderDataType type)
+	static GLenum ShaderDataTypeToOpenGLType(BufferDataType type)
 	{
 		switch (type)
 		{
-		case RUC::ShaderDataType::Float:
-		case RUC::ShaderDataType::Float2:
-		case RUC::ShaderDataType::Float3:
-		case RUC::ShaderDataType::Float4:
-		case RUC::ShaderDataType::Mat3:
-		case RUC::ShaderDataType::Mat4:
+		case RUC::BufferDataType::Float:
+		case RUC::BufferDataType::Float2:
+		case RUC::BufferDataType::Float3:
+		case RUC::BufferDataType::Float4:
+		case RUC::BufferDataType::Mat3:
+		case RUC::BufferDataType::Mat4:
 			return GL_FLOAT;
-		case RUC::ShaderDataType::Int:
-		case RUC::ShaderDataType::Int2:
-		case RUC::ShaderDataType::Int3:
-		case RUC::ShaderDataType::Int4:
+		case RUC::BufferDataType::Int:
+		case RUC::BufferDataType::Int2:
+		case RUC::BufferDataType::Int3:
+		case RUC::BufferDataType::Int4:
 			return GL_INT;
-		case RUC::ShaderDataType::Bool:
+		case RUC::BufferDataType::Bool:
 			return GL_BOOL;
 		}
 
-		RUC_ASSERT(false, "Unknown ShaderDataType");
+		RUC_ASSERT(false, "Unknown BufferDataType");
 		return 0;
 	}
 

@@ -9,6 +9,20 @@
 
 namespace RUC
 {
+	static ShaderDataType ShaderDataTypeFromString(const std::string type)
+	{
+		if (type == "int") return ShaderDataType::Int;
+		if (type == "float") return ShaderDataType::Float;
+		if (type == "bool") return ShaderDataType::Bool;
+		if (type == "float3") return ShaderDataType::Float3;
+		if (type == "float4") return ShaderDataType::Float4;
+		if (type == "mat4") return ShaderDataType::Mat4;
+		if (type == "sampler2D") return ShaderDataType::Texture2D;
+
+		RUC_ASSERT(false, "Unknown ShaderDataType: {0}", type);
+		return ShaderDataType::None;
+	}
+
 	static GLenum ShaderTypeFromString(const std::string& type)
 	{
 		if (type == "vertex")
@@ -28,6 +42,11 @@ namespace RUC
 		auto shaderSources = PreProcess(source);
 
 		Compile(shaderSources);
+		
+		for (const auto& src : shaderSources)
+		{
+			FindUniforms(src.second);
+		}
 	}
 
 	OpenGLShader::OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc)
@@ -38,6 +57,8 @@ namespace RUC
 		shaderSources[GL_FRAGMENT_SHADER] = fragmentSrc;
 
 		Compile(shaderSources);
+		FindUniforms(vertexSrc);
+		FindUniforms(fragmentSrc);
 	}
 
 	OpenGLShader::~OpenGLShader()
@@ -88,12 +109,32 @@ namespace RUC
 		return result;
 	}
 
+	void OpenGLShader::FindUniforms(const std::string& source)
+	{
+		const char* token = "uniform";
+		const size_t tokenLength = strlen(token);
+
+		size_t pos = source.find(token, 0);
+		while (pos != std::string::npos)
+		{
+			size_t typeStartPos = source.find_first_not_of(' ', pos + tokenLength);
+			size_t typeEndPos = source.find_first_of(' ', typeStartPos);
+			ShaderDataType type = ShaderDataTypeFromString(source.substr(typeStartPos, typeEndPos - typeStartPos));
+			size_t nameStartPos = source.find_first_not_of(' ', typeEndPos);
+			size_t nameEndPos = source.find_first_of(" ;", nameStartPos);
+			std::string name = source.substr(nameStartPos, nameEndPos - nameStartPos);
+			pos = source.find(token, nameEndPos);
+
+			m_Uniforms[name] = type;
+		}
+	}
+
 	std::unordered_map<GLenum, std::string> OpenGLShader::PreProcess(const std::string& source)
 	{
 		std::unordered_map<GLenum, std::string> shaderSources;
 
 		const char* token = "#type";
-		size_t tokenLength = strlen(token);
+		const size_t tokenLength = strlen(token);
 		size_t pos = source.find(token, 0);
 		while (pos != std::string::npos)
 		{
@@ -105,6 +146,7 @@ namespace RUC
 
 			size_t nextLinePos = source.find_first_not_of("\r\n", eol);
 			pos = source.find(token, nextLinePos);
+
 			shaderSources[ShaderTypeFromString(type)] = source.substr(nextLinePos, pos - (nextLinePos == std::string::npos ? source.size() - 1 : nextLinePos));
 		}
 
