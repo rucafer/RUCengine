@@ -21,5 +21,7 @@ namespace RUC
 	{
 	public:
 		static Texture2D* LoadFromFile(const std::string& path);
+
+		static Texture2D* Create(const std::string& name, uint32_t width, uint32_t height, unsigned char* data, size_t size);
 	};
 }

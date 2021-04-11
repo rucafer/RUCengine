@@ -44,6 +44,7 @@ namespace RUC
 			return std::dynamic_pointer_cast<T>(s_Resources[name].lock());
 		}
 		
+		//TODO: create persistent resources (always loaded)
 		template<typename T, typename... Args>
 		static std::shared_ptr<T> Create(const std::string& name, Args... args)
 		{

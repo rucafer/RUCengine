@@ -8,6 +8,7 @@ namespace RUC
 	{
 	public:
 		OpenGLTexture2D(const std::string& filePath);
+		OpenGLTexture2D(const std::string& name, uint32_t width, uint32_t height, unsigned char* data, size_t size);
 		~OpenGLTexture2D();
 
 		uint32_t getWidth() const override { return m_Width; }

@@ -30,6 +30,20 @@ namespace RUC
 		stbi_image_free(data);
 	}
 
+	OpenGLTexture2D::OpenGLTexture2D(const std::string& name, uint32_t width, uint32_t height, unsigned char* data, size_t size)
+		:Resource(name), m_Width(width), m_Height(height)
+	{
+		RUC_ASSERT(width * height * 3 == size, "Texture data is invalid. The size must bet {0} (actual size: {1})", width * height * 3, size)
+
+		glCreateTextures(GL_TEXTURE_2D, 1, &m_RendererID);
+		glTextureStorage2D(m_RendererID, 1, GL_RGB8, m_Width, m_Height);
+
+		glTextureParameteri(m_RendererID, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTextureParameteri(m_RendererID, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+		glTextureSubImage2D(m_RendererID, 0, 0, 0, m_Width, m_Height, GL_RGB, GL_UNSIGNED_BYTE, data);
+	}
+
 	OpenGLTexture2D::~OpenGLTexture2D()
 	{
 		glDeleteTextures(1, &m_RendererID);

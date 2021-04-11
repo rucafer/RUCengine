@@ -61,7 +61,7 @@ void TestLayer::OnAttach()
 	m_VertexArray->AddVertexBuffer(vertexColorBuffer);
 	m_VertexArray->SetIndexBuffer(indexBuffer);
 
-	m_Shader = RUC::ResourceManager::GetFromFile<RUC::Shader>("assets/shaders/DefaultShader.glsl");
+	m_Shader = RUC::ResourceManager::GetFromFile<RUC::Shader>("assets/shaders/Test.glsl");
 	m_TextureShader = RUC::ResourceManager::GetFromFile<RUC::Shader>("assets/shaders/TextureShader.glsl");
 	m_CheckerBoardTex = RUC::ResourceManager::GetFromFile<RUC::Texture2D>("assets/textures/TestCheckerBoard.png");
 
@@ -69,6 +69,20 @@ void TestLayer::OnAttach()
 	{
 		RUC_INFO("{0} {1}", uniform.second, uniform.first);
 	}*/
+
+
+	//TEMPORARY: should be fixed whit persistent resources
+	unsigned char* whiteTextureData = new unsigned char[1 * 1 * 3];
+
+	whiteTextureData[0] = (char)255;
+	whiteTextureData[1] = (char)255;
+	whiteTextureData[2] = (char)255;
+
+	auto temporary = RUC::ResourceManager::Create<RUC::Texture2D>("EmptyTexture", 1, 1, whiteTextureData, 1 * 1 * 3);
+
+	mat = RUC::ResourceManager::Create<RUC::Material>("test", m_TextureShader);
+
+	mat->SetTexture2D("u_Texture", m_CheckerBoardTex);
 }
 
 void TestLayer::OnDetach()
@@ -93,8 +107,8 @@ void TestLayer::OnRender()
 	RUC::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
 	RUC::RenderCommand::Clear();
 	
+	
 	m_Shader->Bind();
-
 	//TEMPORARY
 	const float scale = 0.5f;
 
@@ -103,7 +117,7 @@ void TestLayer::OnRender()
 	m_Shader->UploadUniformMat4("u_Transform", transform);
 	RUC::Renderer::Submit(m_VertexArray);
 
-	RUC::Renderer2D::DrawQuad(glm::vec3(0.0f), glm::vec3(1.0f), m_TextureShader, m_CheckerBoardTex);
+	RUC::Renderer2D::DrawQuad(glm::vec3(0.0f), glm::vec3(1.0f), mat);
 
 	m_FrameBuffer->Unbind();
 }

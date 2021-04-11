@@ -13,7 +13,8 @@ namespace RUC
 		Resource(const std::string& name);
 		Resource() = default;
 		virtual ~Resource();
-	private:
+		std::string GetName() const { return m_Name; }
+	protected:
 		std::string m_Name;
 	};
 }

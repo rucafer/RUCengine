@@ -32,6 +32,8 @@ set(RUC_SRC_RENDERER
 	src/Renderer/Buffer.cpp
 	src/Renderer/FrameBuffer.h
 	src/Renderer/FrameBuffer.cpp
+	src/Renderer/Material.h
+	src/Renderer/Material.cpp
 	src/Renderer/RenderCommand.h
 	src/Renderer/RenderCommand.cpp
 	src/Renderer/RenderDevice.h
@@ -44,12 +46,15 @@ set(RUC_SRC_RENDERER
 	src/Renderer/Shader.cpp
 	src/Renderer/Texture.h
 	src/Renderer/Texture.cpp
+	src/Renderer/Uniform.h
 	src/Renderer/VertexArray.h
 	src/Renderer/VertexArray.cpp)
 
 set(RUC_SRC_RESOURCE_MANAGER 
 	src/ResourceManager/Resource.h
-	src/ResourceManager/ResourceManager.h)
+	src/ResourceManager/Resource.cpp
+	src/ResourceManager/ResourceManager.h
+	src/ResourceManager/ResourceManager.cpp)
 
 set(RUC_SRC_PLATFORM_WINDOWS
 	src/Platform/Windows/WindowsWindow.h

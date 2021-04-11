@@ -7,6 +7,8 @@
 
 #include "FrameBuffer.h"
 
+#include "Material.h"
+
 namespace RUC
 {
 	class Renderer

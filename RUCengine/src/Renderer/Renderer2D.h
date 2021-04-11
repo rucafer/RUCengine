@@ -3,6 +3,7 @@
 #include "Renderer.h"
 #include "Texture.h"
 #include "Shader.h"
+#include "Material.h"
 
 namespace RUC
 {
@@ -13,5 +14,6 @@ namespace RUC
 		static void Init();
 
 		static void DrawQuad(const glm::vec3& position, const glm::vec3& scale, const std::shared_ptr<Shader>& shader, const std::shared_ptr<Texture>& texture);
+		static void DrawQuad(const glm::vec3& position, const glm::vec3& scale, const std::shared_ptr<Material>& material);
 	};
 }

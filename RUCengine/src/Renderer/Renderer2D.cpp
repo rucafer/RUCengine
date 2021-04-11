@@ -44,4 +44,16 @@ namespace RUC
 
 		Renderer::Submit(quadVertexArray);
 	}
+
+	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec3& scale, const std::shared_ptr<Material>& material)
+	{
+		material->Bind();
+
+		glm::mat4 transform = glm::scale(glm::translate(glm::mat4(1.0f), position), scale);
+
+		auto shader = material->GetShader();
+		shader->UploadUniformMat4("u_Transform", transform);
+
+		Renderer::Submit(quadVertexArray);
+	}
 }

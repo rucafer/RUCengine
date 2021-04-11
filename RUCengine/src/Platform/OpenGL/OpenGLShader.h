@@ -19,7 +19,9 @@ namespace RUC
 		void Bind() override;
 		void Unbind() override;
 
-		std::unordered_map<std::string, ShaderDataType> GetUniforms() const override { return m_Uniforms; }
+		virtual std::unordered_map <std::string, Uniform>& GetUniforms() override { return m_Uniforms; }
+
+		void UploadUniform(int location, Uniform::Type type, void* data) override;
 
 		void UploadUniformMat4(const std::string& name, const glm::mat4& value) override;
 		void UploadUniformInt(const std::string& name, int value) override;
@@ -30,6 +32,6 @@ namespace RUC
 		void Compile(const std::unordered_map<GLenum, std::string>& sources);
 	private:
 		uint32_t m_RendererID;
-		std::unordered_map<std::string, ShaderDataType> m_Uniforms;
+		std::unordered_map<std::string, Uniform> m_Uniforms;
 	};
 }

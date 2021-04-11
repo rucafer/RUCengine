@@ -4,6 +4,8 @@
 
 #include "Platform/OpenGL/OpenGLRenderDevice.h"
 
+#include "ResourceManager/ResourceManager.h"
+
 namespace RUC
 {
 	RenderDevice* RenderCommand::s_RendererDevice = nullptr;
@@ -21,6 +23,14 @@ namespace RUC
 
 		s_RendererDevice->Init();
 		Renderer2D::Init();
+
+		unsigned char* whiteTextureData = new unsigned char[1 * 1 * 3];
+
+		whiteTextureData[0] = (char)255;
+		whiteTextureData[1] = 0;
+		whiteTextureData[2] = 0;
+
+		ResourceManager::Create<Texture2D>("EmptyTexture", 1, 1, whiteTextureData, 1 * 1 * 3);
 	}
 
 	void RenderCommand::SetClearColor(const glm::vec4& color)

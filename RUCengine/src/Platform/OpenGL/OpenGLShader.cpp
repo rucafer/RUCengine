@@ -9,20 +9,6 @@
 
 namespace RUC
 {
-	static ShaderDataType ShaderDataTypeFromString(const std::string type)
-	{
-		if (type == "int") return ShaderDataType::Int;
-		if (type == "float") return ShaderDataType::Float;
-		if (type == "bool") return ShaderDataType::Bool;
-		if (type == "float3") return ShaderDataType::Float3;
-		if (type == "float4") return ShaderDataType::Float4;
-		if (type == "mat4") return ShaderDataType::Mat4;
-		if (type == "sampler2D") return ShaderDataType::Texture2D;
-
-		RUC_ASSERT(false, "Unknown ShaderDataType: {0}", type);
-		return ShaderDataType::None;
-	}
-
 	static GLenum ShaderTypeFromString(const std::string& type)
 	{
 		if (type == "vertex")
@@ -76,6 +62,36 @@ namespace RUC
 		glUseProgram(0);
 	}
 
+	void OpenGLShader::UploadUniform(int location, Uniform::Type type, void* data)
+	{
+		switch (type)
+		{
+		case Uniform::Type::Int:
+			glUniform1i(location, *((int*)data));
+			break;
+		case Uniform::Type::Float:
+			glUniform1f(location, *((float*)data));
+			break;
+		case Uniform::Type::Bool:
+			glUniform1i(location, *((int*)data));
+			break;
+		case Uniform::Type::Float3:
+			glUniform3fv(location, 1, (float*)data);
+			break;
+		case Uniform::Type::Float4:
+			glUniform4fv(location, 1, (float*)data);
+			break;
+		case Uniform::Type::Mat4:
+			glUniformMatrix4fv(location, 1, GL_FALSE, (float*)data);
+			break;
+		case Uniform::Type::Texture2D:
+			glUniform1i(location, *((int*)data));
+			break;
+		default:
+			RUC_ASSERT(false, "Unknown UniformType: {0}", type);
+		}
+	}
+
 	void OpenGLShader::UploadUniformMat4(const std::string& name, const glm::mat4& matrix)
 	{
 		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
@@ -111,6 +127,8 @@ namespace RUC
 
 	void OpenGLShader::FindUniforms(const std::string& source)
 	{
+		glUseProgram(m_RendererID);
+
 		const char* token = "uniform";
 		const size_t tokenLength = strlen(token);
 
@@ -119,13 +137,15 @@ namespace RUC
 		{
 			size_t typeStartPos = source.find_first_not_of(' ', pos + tokenLength);
 			size_t typeEndPos = source.find_first_of(' ', typeStartPos);
-			ShaderDataType type = ShaderDataTypeFromString(source.substr(typeStartPos, typeEndPos - typeStartPos));
+			Uniform::Type type = Uniform::TypeFromGLSLString(source.substr(typeStartPos, typeEndPos - typeStartPos));
 			size_t nameStartPos = source.find_first_not_of(' ', typeEndPos);
 			size_t nameEndPos = source.find_first_of(" ;", nameStartPos);
 			std::string name = source.substr(nameStartPos, nameEndPos - nameStartPos);
 			pos = source.find(token, nameEndPos);
 
-			m_Uniforms[name] = type;
+			int location = glGetUniformLocation(m_RendererID, name.c_str());
+
+			m_Uniforms[name] = Uniform(type, location);
 		}
 	}
 
