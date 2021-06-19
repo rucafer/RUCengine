@@ -30,7 +30,7 @@ namespace RUC
 		whiteTextureData[1] = 0;
 		whiteTextureData[2] = 0;
 
-		ResourceManager::Create<Texture2D>("EmptyTexture", 1, 1, whiteTextureData, 1 * 1 * 3);
+		//Texture2D::Create("EmptyTexture", 1, 1, whiteTextureData, 1 * 1 * 3);
 	}
 
 	void RenderCommand::SetClearColor(const glm::vec4& color)

@@ -13,7 +13,7 @@ namespace RUC
 		
 		static void Init();
 
-		static void DrawQuad(const glm::vec3& position, const glm::vec3& scale, const std::shared_ptr<Shader>& shader, const std::shared_ptr<Texture>& texture);
-		static void DrawQuad(const glm::vec3& position, const glm::vec3& scale, const std::shared_ptr<Material>& material);
+		static void DrawQuad(const glm::vec3& position, const glm::vec3& scale, ResPtr<Shader> shader, ResPtr<Texture> texture);
+		static void DrawQuad(const glm::vec3& position, const glm::vec3& scale, ResPtr<Material> material);
 	};
 }

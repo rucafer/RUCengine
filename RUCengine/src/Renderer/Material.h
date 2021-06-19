@@ -12,7 +12,10 @@ namespace RUC
 	class Material : public Resource
 	{
 	public:
-		static Material* Create(const std::string& name, const std::shared_ptr<Shader>& shader) { return new Material(name, shader); }
+		static ResPtr<Material> Create(const std::string& name, const ResPtr<Shader>& shader) { 
+			new Material(name, shader); 
+			return ResourceManager::GetByName<Material>(name);
+		}
 
 		~Material();
 
@@ -30,7 +33,7 @@ namespace RUC
 		void SetColor(const std::string& name, glm::vec3 value);
 		void SetColor(const std::string& name, glm::vec4 value);
 		void SetMat4(const std::string& name, glm::mat4 value);
-		void SetTexture2D(const std::string& name, const std::shared_ptr<Texture2D>& texture);
+		void SetTexture2D(const std::string& name, const ResPtr<Texture2D>& texture);
 
 		int GetInt(const std::string& name) const;
 		float GetFloat(const std::string& name) const;
@@ -39,13 +42,13 @@ namespace RUC
 		glm::vec4 GetFloat4(const std::string& name) const;
 		glm::vec4 GetColor(const std::string& name) const;
 		glm::mat4 GetMat4(const std::string& name) const;
-		std::shared_ptr<Texture2D> GetTexture2D(const std::string& name) const;
+		ResPtr<Texture2D> GetTexture2D(const std::string& name) const;
 
-		std::shared_ptr<Shader> GetShader() const { return m_Shader; }
+		ResPtr<Shader> GetShader() const { return m_Shader; }
 
 
 	private:
-		Material(const std::string& name, const std::shared_ptr<Shader>& shader);
+		Material(const std::string& name, ResPtr<Shader> shader);
 
 		void SetUniformValue(const std::string& name, void* value, Uniform::Type type);
 		void* GetUniformValue(const std::string& name, Uniform::Type type) const;
@@ -54,9 +57,9 @@ namespace RUC
 		void SetTextureIndices();
 
 	private:
-		std::shared_ptr<Shader> m_Shader;
+		ResPtr<Shader> m_Shader;
 		std::unordered_map <std::string, Uniform>& m_Uniforms;
-		std::vector<std::shared_ptr<Texture>> m_Textures;
+		std::vector<ResPtr<Texture>> m_Textures;
 
 
 		char* m_UniformBufferPtr;

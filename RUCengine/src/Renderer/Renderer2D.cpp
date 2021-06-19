@@ -29,7 +29,7 @@ namespace RUC
 		quadVertexArray->SetIndexBuffer(quadIndexBuffer);
 	}
 
-	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec3& scale, const std::shared_ptr<Shader>& shader, const std::shared_ptr<Texture>& texture)
+	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec3& scale, ResPtr<Shader> shader, ResPtr<Texture> texture)
 	{
 		shader->Bind();
 
@@ -45,7 +45,7 @@ namespace RUC
 		Renderer::Submit(quadVertexArray);
 	}
 
-	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec3& scale, const std::shared_ptr<Material>& material)
+	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec3& scale, ResPtr<Material> material)
 	{
 		material->Bind();
 

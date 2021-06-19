@@ -8,6 +8,7 @@
 #include "Renderer/Texture.h"
 #include "Renderer/FrameBuffer.h"
 #include "Renderer/Material.h"
+#include "ResourceManager/ResPtr.h"
 
 class TestLayer : public RUC::Layer
 {
@@ -22,15 +23,20 @@ public:
 private:
 	std::shared_ptr<RUC::VertexArray> m_VertexArray;
 
-	std::shared_ptr<RUC::Shader> m_Shader;
-	std::shared_ptr<RUC::Shader> m_TextureShader;
+	RUC::ResPtr<RUC::Shader> m_Shader;
+	//RUC::ResPtr<RUC::Shader> m_TextureShader;
 
 	//TEMPORARY
 	glm::vec3 position = { -1.0f, 0.0f, 0.0f };
 
-	std::shared_ptr<RUC::Texture2D> m_CheckerBoardTex;
+	//RUC::ResPtr<RUC::Texture2D> m_CheckerBoardTex;
 
 	std::shared_ptr<RUC::FrameBuffer> m_FrameBuffer;
 
-	std::shared_ptr<RUC::Material> mat;
+//	RUC::ResPtr<RUC::Material> mat;
+
+	//FPS counter
+	float m_TimeCounter = 0;
+	int m_FrameCounter = 0;
+	int m_LastFPS = 0;
 };

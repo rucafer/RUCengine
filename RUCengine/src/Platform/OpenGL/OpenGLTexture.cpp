@@ -10,7 +10,7 @@
 namespace RUC
 {
 	OpenGLTexture2D::OpenGLTexture2D(const std::string& filePath)
-		:Resource(filePath)
+		:Texture2D(filePath)
 	{
 		int width, height, channels;
 		stbi_set_flip_vertically_on_load(1);
@@ -31,7 +31,7 @@ namespace RUC
 	}
 
 	OpenGLTexture2D::OpenGLTexture2D(const std::string& name, uint32_t width, uint32_t height, unsigned char* data, size_t size)
-		:Resource(name), m_Width(width), m_Height(height)
+		:Texture2D(name), m_Width(width), m_Height(height)
 	{
 		RUC_ASSERT(width * height * 3 == size, "Texture data is invalid. The size must bet {0} (actual size: {1})", width * height * 3, size)
 

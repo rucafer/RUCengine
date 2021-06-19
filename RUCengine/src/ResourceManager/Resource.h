@@ -10,11 +10,15 @@ namespace RUC
 	class Resource
 	{
 	public:
-		Resource(const std::string& name);
-		Resource() = default;
 		virtual ~Resource();
 		std::string GetName() const { return m_Name; }
 	protected:
+		Resource(const std::string& name);
+		Resource();
+	private:
 		std::string m_Name;
+
+		template<typename T>
+		friend class ResPtr;
 	};
 }

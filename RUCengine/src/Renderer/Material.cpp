@@ -6,7 +6,7 @@
 
 namespace RUC
 {
-	Material::Material(const std::string& name, const std::shared_ptr<Shader>& shader)
+	Material::Material(const std::string& name, ResPtr<Shader> shader)
 		: Resource(name), m_Shader(shader), m_Uniforms(shader->GetUniforms())
 	{
 		AllocateUniformBuf();
@@ -120,12 +120,12 @@ namespace RUC
 		SetUniformValue(name, glm::value_ptr(value), Uniform::Type::Mat4);
 	}
 
-	void Material::SetTexture2D(const std::string& name, const std::shared_ptr<Texture2D>& texture)
+	void Material::SetTexture2D(const std::string& name, const ResPtr<Texture2D>& texture)
 	{
 		auto pos = m_Uniforms.find(name);
 		if (pos == m_Uniforms.end())
 		{
-			RUC_WARN("Attribute {0} could not be found at material {1}", name, m_Name);
+			RUC_WARN("Attribute {0} could not be found at material {1}", name, GetName());
 			return;
 		}
 
@@ -234,16 +234,17 @@ namespace RUC
 		}
 	}
 
-	std::shared_ptr<Texture2D> Material::GetTexture2D(const std::string& name) const
+	ResPtr<Texture2D> Material::GetTexture2D(const std::string& name) const
 	{
+
 		int* valuePtr = (int*)GetUniformValue(name, Uniform::Type::Texture2D);
 		if (valuePtr != nullptr)
 		{
-			return std::dynamic_pointer_cast<Texture2D>(m_Textures[*valuePtr]);
+			return (ResPtr<Texture2D>) m_Textures[*valuePtr];
 		}
 		else
 		{
-			return nullptr;
+			return ResPtr<Texture2D>();
 		}
 	}
 
@@ -252,7 +253,7 @@ namespace RUC
 		auto pos = m_Uniforms.find(name);
 		if (pos == m_Uniforms.end())
 		{
-			RUC_WARN("Attribute {0} could not be found at material {1}", name, m_Name);
+			RUC_WARN("Attribute {0} could not be found at material {1}", name, GetName());
 			return;
 		}
 
@@ -355,7 +356,7 @@ namespace RUC
 		auto pos = m_Uniforms.find(name);
 		if (pos == m_Uniforms.end())
 		{
-			RUC_WARN("Attribute {0} could not be found at material {1}", name, m_Name);
+			RUC_WARN("Attribute {0} could not be found at material {1}", name, GetName());
 			return nullptr;
 		}
 
