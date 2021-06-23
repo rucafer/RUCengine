@@ -24,16 +24,16 @@ private:
 	std::shared_ptr<RUC::VertexArray> m_VertexArray;
 
 	RUC::ResPtr<RUC::Shader> m_Shader;
-	//RUC::ResPtr<RUC::Shader> m_TextureShader;
+	RUC::ResPtr<RUC::Shader> m_TextureShader;
 
 	//TEMPORARY
 	glm::vec3 position = { -1.0f, 0.0f, 0.0f };
 
-	//RUC::ResPtr<RUC::Texture2D> m_CheckerBoardTex;
+	RUC::ResPtr<RUC::Texture2D> m_CheckerBoardTex;
 
 	std::shared_ptr<RUC::FrameBuffer> m_FrameBuffer;
 
-//	RUC::ResPtr<RUC::Material> mat;
+	RUC::ResPtr<RUC::Material> mat;
 
 	//FPS counter
 	float m_TimeCounter = 0;

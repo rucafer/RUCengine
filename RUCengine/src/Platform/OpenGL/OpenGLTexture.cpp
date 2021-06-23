@@ -30,8 +30,8 @@ namespace RUC
 		stbi_image_free(data);
 	}
 
-	OpenGLTexture2D::OpenGLTexture2D(const std::string& name, uint32_t width, uint32_t height, unsigned char* data, size_t size)
-		:Texture2D(name), m_Width(width), m_Height(height)
+	OpenGLTexture2D::OpenGLTexture2D(const std::string& name, uint32_t width, uint32_t height, unsigned char* data, size_t size, char flags)
+		:Texture2D(name, flags), m_Width(width), m_Height(height)
 	{
 		RUC_ASSERT(width * height * 3 == size, "Texture data is invalid. The size must bet {0} (actual size: {1})", width * height * 3, size)
 

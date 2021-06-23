@@ -56,7 +56,7 @@ void TestLayer::OnAttach()
 
 	indexBuffer.reset(RUC::IndexBuffer::Create(indices, 3));
 
-	/*m_VertexArray.reset(RUC::VertexArray::Create());
+	m_VertexArray.reset(RUC::VertexArray::Create());
 	m_VertexArray->AddVertexBuffer(vertexPosBuffer);
 	m_VertexArray->AddVertexBuffer(vertexColorBuffer);
 	m_VertexArray->SetIndexBuffer(indexBuffer);
@@ -65,41 +65,9 @@ void TestLayer::OnAttach()
 	m_TextureShader =RUC::Shader::LoadFromFile("assets/shaders/TextureShader.glsl");
 	m_CheckerBoardTex = RUC::Texture2D::LoadFromFile("assets/textures/TestCheckerBoard.png");
 
-
-
-	//TEMPORARY: should be fixed whit persistent resources
-	unsigned char* whiteTextureData = new unsigned char[1 * 1 * 3];
-
-	whiteTextureData[0] = (char)255;
-	whiteTextureData[1] = (char)255;
-	whiteTextureData[2] = (char)255;
-
-	auto temporary = RUC::Texture2D::Create("EmptyTexture", 1, 1, whiteTextureData, 1 * 1 * 3);
-
 	mat =RUC::Material::Create("test", m_TextureShader);
 
-	mat->SetTexture2D("u_Texture", m_CheckerBoardTex);*/
-
-	/*RUC_INFO("===== ResPtr test =====");
-	RUC_INFO("Asset creation:")
-	RUC::ResPtr<RUC::Texture2D> testA = RUC::Texture2D::LoadFromFile("assets/textures/TestCheckerBoard.png");
-	RUC_INFO("New scope");
-	{
-		RUC_INFO("Asset copy:")
-		RUC::ResPtr<RUC::Texture2D> b = testA;
-	}
-	RUC_INFO("Scope ended");
-	RUC_INFO("===== ResPtr test =====");*/
-
-	{
-		RUC::ResPtr<RUC::Texture2D> testA = RUC::Texture2D::LoadFromFile("assets/textures/TestCheckerBoard.png");
-		RUC::ResPtr<RUC::Texture2D> testB = RUC::Texture2D::LoadFromFile("assets/textures/TestCheckerBoard2.png");
-	}
-	{
-		RUC::ResPtr<RUC::Texture2D> testA = RUC::Texture2D::LoadFromFile("assets/textures/TestCheckerBoard3.png");
-		RUC::ResPtr<RUC::Texture2D> testB = RUC::Texture2D::LoadFromFile("assets/textures/TestCheckerBoard4.png");
-		RUC::ResPtr<RUC::Texture2D> testC = RUC::Texture2D::LoadFromFile("assets/textures/TestCheckerBoard5.png");
-	}
+	mat->SetTexture2D("u_Texture", m_CheckerBoardTex);
 }
 
 void TestLayer::OnDetach()
@@ -125,7 +93,7 @@ void TestLayer::OnRender()
 	RUC::RenderCommand::Clear();
 	
 	
-	/*m_Shader->Bind();
+	m_Shader->Bind();
 	//TEMPORARY
 	const float scale = 0.5f;
 
@@ -134,7 +102,7 @@ void TestLayer::OnRender()
 	m_Shader->UploadUniformMat4("u_Transform", transform);
 	RUC::Renderer::Submit(m_VertexArray);
 
-	RUC::Renderer2D::DrawQuad(glm::vec3(0.0f), glm::vec3(1.0f), mat);*/
+	RUC::Renderer2D::DrawQuad(glm::vec3(0.0f), glm::vec3(1.0f), mat);
 
 	m_FrameBuffer->Unbind();
 }
@@ -144,10 +112,10 @@ void TestLayer::OnImGuiRender()
 	m_TimeCounter += RUC::Timestep::Get();
 	m_FrameCounter++;
 
-	if (m_TimeCounter >= 1.0)
+	if (m_TimeCounter >= 0.2)
 	{
 		m_TimeCounter = 0.0;
-		m_LastFPS = m_FrameCounter;
+		m_LastFPS = m_FrameCounter * 5;
 		m_FrameCounter = 0;
 	}
 

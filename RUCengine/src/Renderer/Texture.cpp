@@ -13,21 +13,19 @@ namespace RUC
 		switch (Renderer::GetAPI())
 		{
 		case RenderDevice::API::OpenGL:
-			new OpenGLTexture2D(filePath);
-			//TODO: move the return statement and the base constructor call to macro or something similar
-			return ResourceManager::GetByName<Texture2D>(filePath);
+			return ResourceManager::GetFromFile<OpenGLTexture2D>(filePath);
 		}
 
 		RUC_ASSERT(false, "Unknown RendererAPI");
 		return ResPtr<Texture2D>();
 	}
 
-	ResPtr<Texture2D> Texture2D::Create(const std::string& name, uint32_t width, uint32_t height, unsigned char* data, size_t size)
+	ResPtr<Texture2D> Texture2D::Create(const std::string& name, uint32_t width, uint32_t height, unsigned char* data, size_t size, char flags)
 	{
 		switch (Renderer::GetAPI())
 		{
 		case RenderDevice::API::OpenGL:
-			new OpenGLTexture2D(name, width, height, data, size);
+			new OpenGLTexture2D(name, width, height, data, size, flags);
 			return ResourceManager::GetByName<Texture2D>(name);
 		}
 

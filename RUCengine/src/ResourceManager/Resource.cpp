@@ -3,8 +3,8 @@
 
 namespace RUC
 {
-	Resource::Resource(const std::string& name)
-		:m_Name(name)
+	Resource::Resource(const std::string& name, char flags)
+		:m_Name(name), m_Flags(flags)
 	{
 		ResourceManager::AddResource(this, name);
 	}
@@ -16,6 +16,5 @@ namespace RUC
 
 	Resource::~Resource()
 	{
-		//ResourceManager::Unload(m_Name);
 	}
 }

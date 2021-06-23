@@ -13,13 +13,11 @@ namespace RUC
 	{
 		Resource* ResPtr;
 		int RefCount;
-		char Flags;
 		int NextFreePos;
 
-		ResourceMetadata(Resource* resPtr, char flags)
+		ResourceMetadata(Resource* resPtr)
 		{
 			ResPtr = resPtr;
-			Flags = flags;
 			RefCount = 0;
 			NextFreePos = -1;
 		}
@@ -36,10 +34,26 @@ namespace RUC
 
 			if (pos == s_Indices.end())
 			{
+				RUC_WARN("Resource {0} not found. Nullptr returned", name);
 				return ResPtr<T>();
 			}
 			auto ptr = (T*)s_Metadata[s_Indices[name]].ResPtr;
 			return ResPtr<T>(ptr, s_Indices[name]);
+		}
+
+		static bool Contains(const std::string& name)
+		{
+			return s_Indices.find(name) != s_Indices.end();
+		}
+
+		template<typename T>
+		static ResPtr<T> GetFromFile(const std::string& path)
+		{
+			if (!Contains(path))
+			{
+				new T(path);
+			}
+			return GetByName<T>(path);
 		}
 
 	private:
@@ -48,14 +62,14 @@ namespace RUC
 		{
 			if (s_FirstFreePosition == -1)
 			{
-				s_Metadata.push_back(ResourceMetadata(resource, 0));
+				s_Metadata.push_back(ResourceMetadata(resource));
 				s_Indices[name] = (int)s_Metadata.size() - 1;
 			}
 			else
 			{
 				s_Indices[name] = s_FirstFreePosition;
 				int next = s_Metadata[s_FirstFreePosition].NextFreePos;
-				s_Metadata[s_FirstFreePosition] = ResourceMetadata(resource, 0);
+				s_Metadata[s_FirstFreePosition] = ResourceMetadata(resource);
 				s_FirstFreePosition = next;
 			}
 			

@@ -11,8 +11,8 @@ namespace RUC
 		switch (Renderer::GetAPI())
 		{
 		case RenderDevice::API::OpenGL:
-			new OpenGLShader(filePath);
-			return ResourceManager::GetByName<Shader>(filePath);
+			auto resPtr = ResourceManager::GetFromFile<OpenGLShader>(filePath);
+			return resPtr;
 		}
 
 		RUC_ASSERT(false, "Unknown RendererAPI");
