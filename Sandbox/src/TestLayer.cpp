@@ -68,6 +68,8 @@ void TestLayer::OnAttach()
 	mat =RUC::Material::Create("test", m_TextureShader);
 
 	mat->SetTexture2D("u_Texture", m_CheckerBoardTex);
+
+	m_Camera = RUC::OrthographicCamera(-1.0f, 1.0f, -1.0f, 1.0f, -100.0f, 100.0f);
 }
 
 void TestLayer::OnDetach()
@@ -93,7 +95,18 @@ void TestLayer::OnRender()
 	RUC::RenderCommand::Clear();
 	
 	
-	m_Shader->Bind();
+	//m_Shader->Bind();
+	mat->SetMat4("u_ViewProjection", m_Camera.getProjectionMatrix());
+	//m_TextureShader->Bind();
+	//m_TextureShader->UploadUniformMat4("u_ViewProjection", m_Camera.getProjectionMatrix());
+
+	RUC::Renderer2D::DrawQuad(glm::vec3(0.0f), glm::vec3(1.0f), mat);
+	/*RUC_INFO("\t{0}\t{1}\t{2}\t{3}", a[0][0], a[0][1], a[0][2], a[0][3]);
+	RUC_INFO("\t{0}\t{1}\t{2}\t{3}", a[1][0], a[1][1], a[1][2], a[1][3]);
+	RUC_INFO("\t{0}\t{1}\t{2}\t{3}", a[2][0], a[2][1], a[2][2], a[2][3]);
+	RUC_INFO("\t{0}\t{1}\t{2}\t{3}", a[3][0], a[3][1], a[3][2], a[3][3]);*/
+
+	/*
 	//TEMPORARY
 	const float scale = 0.5f;
 
@@ -103,6 +116,7 @@ void TestLayer::OnRender()
 	RUC::Renderer::Submit(m_VertexArray);
 
 	RUC::Renderer2D::DrawQuad(glm::vec3(0.0f), glm::vec3(1.0f), mat);
+	*/
 
 	m_FrameBuffer->Unbind();
 }
@@ -122,4 +136,22 @@ void TestLayer::OnImGuiRender()
 	ImGui::Begin("Stats");
 	ImGui::Text("Fps: %d", m_LastFPS);
 	ImGui::End();
+
+	float m_Right = m_Camera.GetRight();
+	float m_Left = m_Camera.GetLeft();
+	float m_Top = m_Camera.GetTop();
+	float m_Bottom = m_Camera.GetBottom();
+	float m_Near = m_Camera.GetNear();
+	float m_Far = m_Camera.GetFar();
+
+	ImGui::Begin("Orthographic camera test");
+	ImGui::InputFloat("Right", &m_Right, 0.01f);
+	ImGui::InputFloat("Left", &m_Left, 0.01f);
+	ImGui::InputFloat("Bottom", &m_Top, 0.01f);
+	ImGui::InputFloat("Top", &m_Bottom, 0.01f);
+	ImGui::InputFloat("Near", &m_Near, 0.01f);
+	ImGui::InputFloat("Far", &m_Far, 0.01f);
+	ImGui::End();
+
+	m_Camera.SetProjection(m_Right, m_Left, m_Bottom, m_Top, m_Near, m_Far);
 }

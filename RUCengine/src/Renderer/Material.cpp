@@ -317,25 +317,25 @@ namespace RUC
 			float* dataPtr = (float*)(m_UniformBufferPtr + pos->second.getOffset());
 			float* valuePtr = (float*)value;
 
-			*dataPtr = valuePtr[0];
-			*dataPtr = valuePtr[1];
-			*dataPtr = valuePtr[2];
-			*dataPtr = valuePtr[3];
+			dataPtr[0] = valuePtr[0];
+			dataPtr[1] = valuePtr[1];
+			dataPtr[2] = valuePtr[2];
+			dataPtr[3] = valuePtr[3];
 
-			*dataPtr = valuePtr[4];
-			*dataPtr = valuePtr[5];
-			*dataPtr = valuePtr[6];
-			*dataPtr = valuePtr[7];
+			dataPtr[4] = valuePtr[4];
+			dataPtr[5] = valuePtr[5];
+			dataPtr[6] = valuePtr[6];
+			dataPtr[7] = valuePtr[7];
 
-			*dataPtr = valuePtr[8];
-			*dataPtr = valuePtr[9];
-			*dataPtr = valuePtr[10];
-			*dataPtr = valuePtr[11];
+			dataPtr[8] = valuePtr[8];
+			dataPtr[9] = valuePtr[9];
+			dataPtr[10] = valuePtr[10];
+			dataPtr[11] = valuePtr[11];
 
-			*dataPtr = valuePtr[12];
-			*dataPtr = valuePtr[13];
-			*dataPtr = valuePtr[14];
-			*dataPtr = valuePtr[15];
+			dataPtr[12] = valuePtr[12];
+			dataPtr[13] = valuePtr[13];
+			dataPtr[14] = valuePtr[14];
+			dataPtr[15] = valuePtr[15];
 			break;
 		}
 		case Uniform::Type::Texture2D:

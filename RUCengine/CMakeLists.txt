@@ -30,10 +30,14 @@ set(RUC_SRC_LOG
 set(RUC_SRC_RENDERER 
 	src/Renderer/Buffer.h
 	src/Renderer/Buffer.cpp
+	src/Renderer/Camera.h
+	src/Renderer/Camera.cpp
 	src/Renderer/FrameBuffer.h
 	src/Renderer/FrameBuffer.cpp
 	src/Renderer/Material.h
 	src/Renderer/Material.cpp
+	src/Renderer/OrthographicCamera.h
+	src/Renderer/OrthographicCamera.cpp
 	src/Renderer/RenderCommand.h
 	src/Renderer/RenderCommand.cpp
 	src/Renderer/RenderDevice.h

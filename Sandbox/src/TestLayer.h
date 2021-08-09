@@ -9,6 +9,8 @@
 #include "Renderer/FrameBuffer.h"
 #include "Renderer/Material.h"
 #include "ResourceManager/ResPtr.h"
+#include "Renderer/OrthographicCamera.h"
+
 
 class TestLayer : public RUC::Layer
 {
@@ -34,6 +36,8 @@ private:
 	std::shared_ptr<RUC::FrameBuffer> m_FrameBuffer;
 
 	RUC::ResPtr<RUC::Material> mat;
+
+	RUC::OrthographicCamera m_Camera;
 
 	//FPS counter
 	float m_TimeCounter = 0;
