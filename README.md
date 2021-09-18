@@ -21,6 +21,20 @@ The goal of this project is to gain a better understanding about how modern game
 
 ## Installation
 RUCengine only supports Windows. Visual Studio 2019 is recommended as other versions have not been tested
+[CMake](https://cmake.org/download/) is needed for the creation of the Visual Studio solution
+
+**1. Downloading the repository**
+
+Clone the repository with `git clone --recursive https://github.com/rucafer/RUCengine`.
+
+**2. Setting up the Visual Studio solution**
+
+Create a `Build` directory inside the reposiotry folder and navigate there. Then run `cmake ..`
+
+**3. Compiling the project**
+
+Open `RUCengine.sln`, compile and run the project inside Visual Studio
+
 
 ## Next steps
 - 3D model loading and rendering
